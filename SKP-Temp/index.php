@@ -1,10 +1,31 @@
-<html  lang="en">
+<?php
+
+$host="localhost";
+$username="infotavle.itd-sk";
+$password="OVSZY0Jt";
+$db_name="infotavle_itd_skp_sde_dk";
+
+
+$con = mysqli_connect($host, $username, $password, $db_name);
+
+if (!$con)
+{
+    die("Connection failed:" . mysqli_connect_error());
+}
+
+$sql_tabel = "SELECT name FROM climateSensor";
+$resultat = mysqli_query($con,$sql_tabel);
+?>
+
+
+
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>skp</title>
     <script
-            type="text/javascript"
-            src="https://www.gstatic.com/charts/loader.js"
+        type="text/javascript"
+        src="https://www.gstatic.com/charts/loader.js"
     ></script>
     <script type="text/javascript">
         google.charts.load('current', {'packages':['corechart']});
@@ -129,5 +150,9 @@
 <div id="chart_Wed" style="width: 100%; height: 20%"></div>
 <div id="chart_Thu" style="width: 100%; height: 20%"></div>
 <div id="chart_Fri" style="width: 100%; height: 20%"></div>
+<?php
+
+
+?>
 </body>
 </html>
