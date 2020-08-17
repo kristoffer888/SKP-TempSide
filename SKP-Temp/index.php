@@ -13,8 +13,6 @@ if (!$con)
     die("Connection failed:" . mysqli_connect_error());
 }
 
-$sql_tabel = "SELECT name FROM climateSensor";
-$resultat = mysqli_query($con,$sql_tabel);
 ?>
 
 
@@ -152,7 +150,14 @@ $resultat = mysqli_query($con,$sql_tabel);
 <div id="chart_Fri" style="width: 100%; height: 20%"></div>
 <?php
 
+$sql_tabel = "SELECT * FROM climateSensor";
+$resultat = mysqli_query($con, $sql_tabel);
 
+while ($row = mysqli_fetch_assoc($resultat)){
+
+    echo $row['zone'];
+
+}
 ?>
 </body>
 </html>
