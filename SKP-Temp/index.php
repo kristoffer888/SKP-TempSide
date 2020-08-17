@@ -29,7 +29,7 @@ if (!$con)
         google.charts.setOnLoadCallback(drawChart);
         function drawChart() {
             var datamon = google.visualization.arrayToDataTable([
-                ['Tid', 'Temperature °C', {type: 'number', role: 'annotation'}, 'Humidity %', {type: 'number', role: 'annotation'}],
+                ['Tid', 'Temperature °C', {role: 'annotation'}, 'Humidity %', {role: 'annotation'}],
 
                 <?php
                 $sql_tabel = "SELECT updated, temperature, humidity FROM climateSensor LIMIT 3";
@@ -40,7 +40,7 @@ if (!$con)
                 $Temperature = $row['temperature'];
                 $Humidity = $row['humidity'];
                 ?>
-                ['<?php echo $Tid;?>',<?php echo $Temperature;?>,<?php echo $Humidity;?>,<?php echo $Humidity;?>,<?php echo $Temperature;?>],
+                ['<?php echo $Tid;?>',<?php echo $Temperature;?>,<?php echo $Temperature;?>,<?php echo $Humidity;?>, <?php echo $Humidity;?>],
                 <?php
                 }
                 ?>
