@@ -29,10 +29,10 @@ if (!$con)
         google.charts.setOnLoadCallback(drawChart);
         function drawChart() {
             var datamon = google.visualization.arrayToDataTable([
-                ['Tid', 'Temperature °C', {role: 'annotation'}, 'Humidity %', {role: 'annotation'}],
+                ['Tid', 'Temperatur °C', {role: 'annotation'}, 'Luftfugtighed %', {role: 'annotation'}],
 
                 <?php
-                $sql_tabel = "SELECT updated, temperature, humidity FROM climateSensor LIMIT 3";
+                $sql_tabel = "SELECT * FROM ( SELECT * FROM climateSensor ORDER BY id DESC LIMIT 3 ) AS r ORDER BY id";
                 $resultat = mysqli_query($con, $sql_tabel);
 
                 while ($row = mysqli_fetch_assoc($resultat)){
@@ -52,8 +52,33 @@ if (!$con)
                 title: 'Man',
                 vAxis: {minValue: 0},
                 series: {
-                    0: { areaOpacity: 0.5},
-                    1: { areaOpacity: 0.1}
+                    0: {
+                        areaOpacity: 0.5,
+                        annotations: {
+                            stem: {
+                                length: -30
+                            },
+                            textStyle: {
+                                auraColor: '#000000',
+                                bold: true,
+                                fontSize: 20,
+                            }
+                        },
+                    },
+
+                    1: {
+                        areaOpacity: 0.1,
+                        annotations: {
+                            stem: {
+                                length: 10
+                            },
+                            textStyle: {
+                                auraColor: '#000000',
+                                bold: true,
+                                fontSize: 20,
+                            }
+                        },
+                    },
                 }
 
 
