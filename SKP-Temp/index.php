@@ -65,7 +65,6 @@ if (!$con)
                             }
                         },
                     },
-
                     1: {
                         areaOpacity: 0.1,
                         annotations: {
@@ -73,7 +72,7 @@ if (!$con)
                                 length: 10
                             },
                             textStyle: {
-                                auraColor: '#000000',
+                                auraColor: '#ffffff',
                                 bold: true,
                                 fontSize: 20,
                             }
