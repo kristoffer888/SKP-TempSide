@@ -14,7 +14,11 @@ if (!$con)
 }
 ?>
 
+<?php
+$time = date("Y/m/d", strtotime('last monday'));
+echo $time;
 
+?>
 
 <html lang="en">
 <head>
@@ -32,7 +36,8 @@ if (!$con)
                 ['Tid', 'Temperatur °C', {role: 'annotation'}, 'Luftfugtighed %', {role: 'annotation'}],
 
                 <?php
-                $sql_tabel = "SELECT * FROM ( SELECT * FROM climateSensor ORDER BY id DESC LIMIT 3 ) AS r ORDER BY id";
+
+                $sql_tabel = "SELECT * FROM ( SELECT * FROM climateSensor WHERE zone = 5 ORDER BY id DESC LIMIT 3 ) AS r ORDER BY id";
                 $resultat = mysqli_query($con, $sql_tabel);
 
                 while ($row = mysqli_fetch_assoc($resultat)){
