@@ -70,7 +70,6 @@ echo $time;
                             }
                         },
                     },
-
                     1: {
                         areaOpacity: 0.1,
                         annotations: {
@@ -78,7 +77,7 @@ echo $time;
                                 length: 10
                             },
                             textStyle: {
-                                auraColor: '#000000',
+                                auraColor: '#ffffff',
                                 bold: true,
                                 fontSize: 20,
                             }
