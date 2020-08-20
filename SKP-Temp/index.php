@@ -32,7 +32,7 @@ if (!$con)
                 ['Tid', 'Temperatur °C', {role: 'annotation'}, 'Luftfugtighed %', {role: 'annotation'}],
 
                 <?php
-                $sql_tabel = "SELECT * FROM ( SELECT * FROM climateSensor ORDER BY id DESC LIMIT 3 ) AS r ORDER BY id";
+                $sql_tabel = "SELECT humidity, zone, temperature, updated FROM climatesensor WHERE zone = 8 and ((updated > '2020-08-12 08:00:00' and updated < '2020-08-12 08:05:00') or (updated > '2020-08-12 12:00:00' and updated < '2020-08-12 12:05:00') or (updated > '2020-08-12 15:00:00' AND updated < '2020-08-12 15:05:00'))";
                 $resultat = mysqli_query($con, $sql_tabel);
 
                 while ($row = mysqli_fetch_assoc($resultat)){
@@ -40,9 +40,10 @@ if (!$con)
                 $Temperature = $row['temperature'];
                 $Humidity = $row['humidity'];
                 ?>
-                ['<?php echo $Tid;?>',<?php echo $Temperature;?>,<?php echo $Temperature;?>,<?php echo $Humidity;?>, <?php echo $Humidity;?>],
+                ['<?php echo $Tid;?>', <?php echo $Temperature;?>, <?php echo $Temperature;?>, <?php echo $Humidity;?>, <?php echo $Humidity;?>],
                 <?php
                 }
+                mysqli_close($con);
                 ?>
             ]);
 
