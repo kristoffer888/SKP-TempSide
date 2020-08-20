@@ -127,6 +127,6 @@
     </script>
 </head>
 <body>
-<div id="chart_Mon" style="width: 50% !important; height: 100% !important;"></div>
+<div id="chart_Mon" style="width: 100% !important; height: 70% !important;"></div>
 </body>
 </html>
