@@ -72,7 +72,7 @@
                 while ($row = mysqli_fetch_assoc($result)){
                 $dateTime = $row['updated'];
                 $dateTime = date_create($dateTime);
-                $Date = date_format($dateTime, "Y-m-d");
+                $Date = date_format($dateTime, "D d-m-Y");
                 $Tid = date_format($dateTime, "H:i:s");
                 $Temperature = $row['temperature'];
                 $Humidity = $row['humidity'];
@@ -86,7 +86,7 @@
 
             var optionsMon = {
                 colors: ['orange','blue'],
-                title: "Mandag <?php echo ($Date) ?>",
+                title: "<?php echo ($Date) ?>",
                 vAxis: {minValue: 0},
                 series: {
                     0: {
