@@ -12,7 +12,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>skp</title>
+    <title>skp-temp</title>
 
     <div class="container-fluid">
         <div class="dropdown first">
