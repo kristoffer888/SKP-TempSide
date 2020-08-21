@@ -3,8 +3,9 @@ body {
     margin: 0;
 }
 
-h1{
+p{
     display:inline;
+    font-size: 140px !important;
 }
 
 .dropbtn {
