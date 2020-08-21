@@ -32,7 +32,7 @@
         </div>
     </div>
 
-    <div style="text-align: center;"><p>Zone 5</p></div>
+    <div style="text-align: center;"><h1>Zone 5</h1></div>
     <script>
         function myFunction() {
             document.getElementById("myDropdown").classList.toggle("show");
@@ -72,7 +72,7 @@
                 while ($row = mysqli_fetch_assoc($result)){
                 $dateTime = $row['updated'];
                 $dateTime = date_create($dateTime);
-                $Date = date_format($dateTime, "Y-m-d");
+                $Date = date_format($dateTime, "D d-m-Y");
                 $Tid = date_format($dateTime, "H:i:s");
                 $Temperature = $row['temperature'];
                 $Humidity = $row['humidity'];
@@ -86,7 +86,8 @@
 
             var optionsMon = {
                 colors: ['orange','blue'],
-                title: "Mandag <?php echo ($Date) ?>",
+                title: "<?php echo ($Date) ?>",
+                titleTextStyle: {fontSize: 24},
                 vAxis: {minValue: 0},
                 series: {
                     0: {
@@ -127,6 +128,6 @@
     </script>
 </head>
 <body>
-<div id="chart_Mon" style="width: 100% !important; height: 40% !important;"></div>
+<div id="chart_Mon" style="width: 100% !important; height: 70% !important;"></div>
 </body>
 </html>
