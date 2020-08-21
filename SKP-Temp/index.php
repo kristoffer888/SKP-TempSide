@@ -32,7 +32,7 @@
         </div>
     </div>
 
-    <center><h1>Zone 5</h1></center>
+    <div style="text-align: center;"><p>Zone 5</p></div>
     <script>
         function myFunction() {
             document.getElementById("myDropdown").classList.toggle("show");
@@ -127,6 +127,6 @@
     </script>
 </head>
 <body>
-<div id="chart_Mon" style="width: 50% !important; height: 100% !important;"></div>
+<div id="chart_Mon" style="width: 100% !important; height: 40% !important;"></div>
 </body>
 </html>
