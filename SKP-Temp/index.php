@@ -16,7 +16,7 @@
 
     <div class="container-fluid">
         <div class="dropdown first">
-            <button onclick="myFunction()" class="dropbtn">Zoner</button>
+            <button onclick="myFunction()" class="dropbtn">Zoner xd</button>
             <div id="myDropdown" class="dropdown-content">
                 <a href="#contact">Zone5</a>
                 <a href="#contact">Zone6</a>
