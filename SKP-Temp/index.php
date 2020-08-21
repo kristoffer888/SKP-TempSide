@@ -1,44 +1,44 @@
-<link rel="stylesheet" href="style.css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-    $(document).ready(function(){
-        var jsondata = $.ajax({
-            url: "data.php",
-            dataType: "JSON",
-
-            success: function (data) {
-                console.log(data)
-            },error:function (error){
-                console.log(error)
-            }
-        });
-    });
-</script>
+<link href="wp/week-picker.css" rel="stylesheet">
+<link rel="stylesheet" href="style.css"/>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1" name="viewport">
+<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="wp/week-picker.js"></script>
 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>skp</title>
 
-    <div class="dropdown">
-        <button onclick="myFunction()" class="dropbtn">Zoner</button>
-        <div id="myDropdown" class="dropdown-content">
-            <a href="#contact">Zone5</a>
-            <a href="#contact">Zone6</a>
-            <a href="#contact">Zone8</a>
-            <a href="#contact">Zone9</a>
-            <a href="#contact">Zone100</a>
-            <a href="#contact">Zone102</a>
+    <div class="container-fluid">
+        <div class="dropdown first">
+            <button onclick="myFunction()" class="dropbtn">Zoner</button>
+            <div id="myDropdown" class="dropdown-content">
+                <a href="#contact">Zone5</a>
+                <a href="#contact">Zone6</a>
+                <a href="#contact">Zone8</a>
+                <a href="#contact">Zone9</a>
+                <a href="#contact">Zone100</a>
+                <a href="#contact">Zone102</a>
+            </div>
         </div>
+        <div class="week-picker second" data-mode="single"></div>
     </div>
 
-    <div style="text-align: center;"><h1>Zone 5</h1></div>
+    <div style="text-align: center; margin-top:10px !important;">
+        <h1>Zone 5</h1>
+    </div>
+
     <script>
         function myFunction() {
             document.getElementById("myDropdown").classList.toggle("show");
         }
 
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             if (!event.target.matches('.dropbtn')) {
                 var dropdowns = document.getElementsByClassName("dropdown-content");
                 var i;
@@ -53,13 +53,11 @@
     </script>
 
 
-    <script
-            type="text/javascript"
-            src="https://www.gstatic.com/charts/loader.js"
-    ></script>
-    <script type="text/javascript">
-        google.charts.load('current', {'packages':['corechart']});
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        google.charts.load('current', {'packages': ['corechart']});
         google.charts.setOnLoadCallback(drawChart);
+
         function drawChart() {
             var datamon = google.visualization.arrayToDataTable([
                 ['Tid', 'Temperatur °C', {role: 'annotation'}, 'Luftfugtighed %', {role: 'annotation'}],
@@ -70,10 +68,11 @@
 
 
                 while ($row = mysqli_fetch_assoc($result)){
+                $zone = $row['zone'];
                 $dateTime = $row['updated'];
                 $dateTime = date_create($dateTime);
                 $Date = date_format($dateTime, "D d-m-Y");
-                $Tid = date_format($dateTime, "H:i:s");
+                $Tid = date_format($dateTime, "H:i");
                 $Temperature = $row['temperature'];
                 $Humidity = $row['humidity'];
                 ?>
@@ -85,8 +84,8 @@
 
 
             var optionsMon = {
-                colors: ['orange','blue'],
-                title: "<?php echo ($Date) ?>",
+                colors: ['orange', 'blue'],
+                title: "<?php echo($Date) ?>",
                 titleTextStyle: {fontSize: 24},
                 vAxis: {minValue: 0},
                 series: {

@@ -3,14 +3,27 @@ body {
     margin: 0;
 }
 
-p{
-    display:inline;
-    font-size: 40px !important;
+.first{
+    float: left;
+}
+
+.second{
+    float: left;
+}
+
+h1{
+    margin: 0;
+}
+
+.container-fluid{
+    padding-left: 0 !important;
+    padding-bottom: 100px;
+    margin-left: 0 !important;
 }
 
 .dropbtn {
     background-color: rgb(240, 174, 76);
-    max-width: 210px;
+    width: 100px;
     color: white;
     padding: 16px;
     font-size: 16px;
@@ -32,7 +45,7 @@ p{
     display: none;
     position: absolute;
     background-color: #f1f1f1;
-    max-width: 100px;
+    width: 100px;
     overflow: auto;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
