@@ -12,7 +12,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>skp-temp-xd</title>
+    <title>SKP Temperatur</title>
 
     <div class="container-fluid">
         <div class="dropdown first">
