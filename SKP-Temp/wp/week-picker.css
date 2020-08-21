@@ -1,79 +1,91 @@
 ._week-picker * {
-	box-sizing: border-box;
-	text-decoration: none;
+    box-sizing: border-box;
+    text-decoration: none;
 }
 
 ._week-picker ._input {
-	color: white !important;
-	background: rgb(240, 174, 76) !important;
+    color: white !important;
+    background: rgb(240, 174, 76) !important;
 }
 
 ._week-picker ._middle ._popup {
-	position: absolute;
-	top: 0;
-	background: #eee;
-	border-radius: 4px;
-	box-shadow: 2px 2px 4px #ccc;
-	text-align: center;
-	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-	z-index: 99;
+    position: absolute;
+    top: 0;
+    background: #eee;
+    border-radius: 4px;
+    box-shadow: 2px 2px 4px #ccc;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    z-index: 99;
 }
+
 ._week-picker ._middle {
-	position: relative;
+    position: relative;
 }
+
 ._week-picker ._weekTable {
-	margin: 5px;
-	border: none;
-	border-collapse: collapse;
-	width: auto;
+    margin: 5px;
+    border: none;
+    border-collapse: collapse;
+    width: auto;
 }
+
 ._week-picker ._weekTable td {
-	padding: 0;
-	width: 40px;
-	height: 30px;
-	cursor: pointer;
-	margin: 2px;
-	text-align: center;
-	position: relative;
-	border: none;
-	border-radius: 0px;
-	-moz-user-select: none;
-	-webkit-user-select: none;
-	user-select: none;
-	color: #444;
-	cursor: pointer;
-	background: #eee;
+    padding: 0;
+    width: 40px;
+    height: 30px;
+    cursor: pointer;
+    margin: 2px;
+    text-align: center;
+    position: relative;
+    border: none;
+    border-radius: 0px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    color: #444;
+    cursor: pointer;
+    background: #eee;
 }
+
 ._week-picker ._weekTable td:focus {
-	background-color: #d6d6d6;
+    background-color: #d6d6d6;
 }
+
 ._week-picker ._weekTable td:active {
-	background-color: #d6d6d6;
+    background-color: #d6d6d6;
 }
+
 ._week-picker ._weekTable td:hover {
-	background: #f4b0b0;
-	border-radius: 5px;
+    background: #f4b0b0;
+    border-radius: 5px;
 }
+
 ._week-picker ._weekTable td._active {
-	background: #ec7c7c;
-	border-radius: 0px;
+    background: #ec7c7c;
+    border-radius: 0px;
 }
+
 ._week-picker ._weekTable td._current {
-	background: #d5d5d5;
-	border-radius: 5px;
+    background: #d5d5d5;
+    border-radius: 5px;
 }
+
 ._week-picker ._weekTable td._current._active {
-	border-radius: 0px;
-	background: #de7979;
+    border-radius: 0px;
+    background: #de7979;
 }
+
 ._week-picker ._weekTable td._rangeAdd {
-	border-radius: 0px;
-	background: #eb8f8f;
+    border-radius: 0px;
+    background: #eb8f8f;
 }
+
 ._week-picker ._weekTable td._active._rangeDel {
-	border-radius: 0px;
-	background: rgb(233, 223, 223) !important;
+    border-radius: 0px;
+    background: rgb(233, 223, 223) !important;
 }
+
 /*._week-picker ._weekTable td._current::before {
 	content: "";
 	height: 8px;
@@ -85,38 +97,45 @@
 	background: #db6f6f;
 }*/
 ._week-picker ._middle ._popup ._oh {
-	width: 100%;
-	background-color: #dddddd;
-	border-radius: 4px 4px 0 0;
-	padding: 5px 0;
+    width: 100%;
+    background-color: #dddddd;
+    border-radius: 4px 4px 0 0;
+    padding: 5px 0;
 }
+
 ._week-picker ._middle ._popup ._uh {
-	width: 100%;
-	background-color: #dddddd;
-	border-radius: 0 0 4px 4px;
-	padding: 5px 0;
+    width: 100%;
+    background-color: #dddddd;
+    border-radius: 0 0 4px 4px;
+    padding: 5px 0;
 }
+
 ._week-picker ._middle ._popup ._uh a {
-	color: #333;
-	font-size: 14px;
+    color: #333;
+    font-size: 14px;
 }
+
 ._week-picker ._popup ._arrow {
-	display: inline-block;
-	color: black;
-	margin: 0 10px;
-	padding: 0 6px;
-	border-radius: 3px;
+    display: inline-block;
+    color: black;
+    margin: 0 10px;
+    padding: 0 6px;
+    border-radius: 3px;
 }
+
 ._week-picker ._popup ._arrow:hover {
-	background-color: #eee;
+    background-color: #eee;
 }
+
 ._week-picker ._popup ._arrow:focus {
-	background-color: #eee;
+    background-color: #eee;
 }
+
 ._week-picker ._popup ._yeardisp {
-	display: inline-block;
-	margin: 0;
-	font-weight: 600;
+    display: inline-block;
+    margin: 0;
+    font-weight: 600;
 }
+
 ._week-picker ._clear {
 }

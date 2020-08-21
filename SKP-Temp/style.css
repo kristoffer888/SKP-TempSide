@@ -3,19 +3,19 @@ body {
     margin: 0;
 }
 
-.first{
+.first {
     float: left;
 }
 
-.second{
+.second {
     float: left;
 }
 
-h1{
+h1 {
     margin: 0;
 }
 
-.container-fluid{
+.container-fluid {
     padding-left: 0 !important;
     padding-bottom: 100px;
     margin-left: 0 !important;
@@ -47,7 +47,7 @@ h1{
     background-color: #f1f1f1;
     width: 100px;
     overflow: auto;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
 
@@ -58,6 +58,10 @@ h1{
     display: block;
 }
 
-.dropdown a:hover {background-color: #ddd;}
+.dropdown a:hover {
+    background-color: #ddd;
+}
 
-.show {display: block;}
+.show {
+    display: block;
+}
