@@ -7,11 +7,12 @@
     height: 56px;
     background: rgb(240, 174, 76) !important;
     border: 0px;
-    border-bottom-right-radius: 5px;
+    text-align: center;
+    margin-left: 5px;
 }
 
 input::placeholder, .week-picker > ._week-picker > input {
-    color: white !important;
+    color: whitesmoke !important;
 }
 
 ._week-picker ._middle ._popup {
