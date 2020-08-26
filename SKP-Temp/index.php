@@ -16,7 +16,7 @@
 
     <div class="container-fluid">
         <div class="dropdown first">
-            <button onclick="myFunction()" class="dropbtn">Zoner xd</button>
+            <button onclick="myFunction()" class="dropbtn">Zoner</button>
             <div id="myDropdown" class="dropdown-content">
                 <a href="#contact">Zone5</a>
                 <a href="#contact">Zone6</a>
@@ -63,7 +63,7 @@
 
                 <?php
                 $conn = mysqli_connect("localhost", "root", "", "test");
-                $result = mysqli_query($conn, "SELECT humidity, zone, temperature, updated FROM climatesensor WHERE zone = 8 and ((updated > '2020-08-12 08:00:00' and updated < '2020-08-12 08:05:00') or (updated > '2020-08-12 12:00:00' and updated < '2020-08-12 12:05:00') or (updated > '2020-08-12 15:00:00' AND updated < '2020-08-12 15:05:00'))");
+                $result = mysqli_query($conn, "SELECT humidity, zone, temperature, updated FROM climatesensor WHERE zone = 5 AND ((time(updated) > time('08:00') and time(updated) < '08:05') or (time(updated) > '12:00' and time(updated) < '12:05') or (time(updated) > '15:00' AND time(updated) < '15:05'))");
 
 
                 while ($row = mysqli_fetch_assoc($result)){
