@@ -124,6 +124,7 @@
                         var day = date.getDate();
                     if ((year + "-" + month + "-" + day) == weekList[i] && dataArray[x].zone == zoneNumber) {
                         listList[i].push(dataArray[x]);
+                        console.log(listList)
                     }
                 }
             }
