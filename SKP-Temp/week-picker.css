@@ -3,9 +3,15 @@
     text-decoration: none;
 }
 
-._week-picker ._input {
-    color: white !important;
+.week-picker > ._week-picker > input {
+    height: 56px;
     background: rgb(240, 174, 76) !important;
+    border: 0px;
+    border-bottom-right-radius: 5px;
+}
+
+input::placeholder, .week-picker > ._week-picker > input {
+    color: white !important;
 }
 
 ._week-picker ._middle ._popup {
@@ -31,7 +37,7 @@
 }
 
 ._week-picker ._weekTable td {
-    padding: 0;
+    padding: 5px;
     width: 40px;
     height: 30px;
     cursor: pointer;
