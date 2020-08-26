@@ -1,37 +1,19 @@
-<link href="wp/week-picker.css" rel="stylesheet">
-<link rel="stylesheet" href="style.css"/>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1" name="viewport">
-<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-<script src="wp/week-picker.js"></script>
-
-<html lang="en">
+<html>
 <head>
+    <link rel="stylesheet" type="text/css" href="week-picker.css">
+    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="week-picker.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
     <meta charset="UTF-8">
     <title>SKP Temperatur</title>
-
-    <div class="container-fluid">
-        <div class="dropdown first">
-            <button onclick="myFunction()" class="dropbtn">Zoner</button>
-            <div id="myDropdown" class="dropdown-content">
-                <a href="#contact">Zone5</a>
-                <a href="#contact">Zone6</a>
-                <a href="#contact">Zone8</a>
-                <a href="#contact">Zone9</a>
-                <a href="#contact">Zone100</a>
-                <a href="#contact">Zone102</a>
-            </div>
-        </div>
-        <div class="week-picker second" data-mode="single"></div>
-    </div>
-
-    <div style="text-align: center; margin-top:10px !important;">
-        <h1>Zone 5</h1>
-    </div>
 
     <script>
         function myFunction() {
@@ -51,81 +33,141 @@
             }
         }
     </script>
-
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
-        google.charts.load('current', {'packages': ['corechart']});
-        google.charts.setOnLoadCallback(drawChart);
+        var sqlZone = 5;
 
-        function drawChart() {
-            var datamon = google.visualization.arrayToDataTable([
-                ['Tid', 'Temperatur °C', {role: 'annotation'}, 'Luftfugtighed %', {role: 'annotation'}],
-
-                <?php
-                $conn = mysqli_connect("localhost", "root", "", "test");
-                $result = mysqli_query($conn, "SELECT humidity, zone, temperature, updated FROM climatesensor WHERE zone = 5 AND ((time(updated) > time('08:00') and time(updated) < '08:05') or (time(updated) > '12:00' and time(updated) < '12:05') or (time(updated) > '15:00' AND time(updated) < '15:05'))");
-
-
-                while ($row = mysqli_fetch_assoc($result)){
-                $zone = $row['zone'];
-                $dateTime = $row['updated'];
-                $dateTime = date_create($dateTime);
-                $Date = date_format($dateTime, "D d-m-Y");
-                $Tid = date_format($dateTime, "H:i");
-                $Temperature = $row['temperature'];
-                $Humidity = $row['humidity'];
-                ?>
-                ['<?php echo $Tid;?>',<?php echo $Temperature;?>,<?php echo $Temperature;?>,<?php echo $Humidity;?>, <?php echo $Humidity;?>],
-                <?php
-                }
-                ?>
-            ]);
-
-
-            var optionsMon = {
-                colors: ['orange', 'blue'],
-                title: "<?php echo($Date) ?>",
-                titleTextStyle: {fontSize: 24},
-                vAxis: {minValue: 0},
-                series: {
-                    0: {
-                        areaOpacity: 0.5,
-                        annotations: {
-                            stem: {
-                                length: -30
-                            },
-                            textStyle: {
-                                auraColor: '#000000',
-                                bold: true,
-                                fontSize: 20,
-                            }
-                        },
-                    },
-                    1: {
-                        areaOpacity: 0.1,
-                        annotations: {
-                            stem: {
-                                length: 10
-                            },
-                            textStyle: {
-                                auraColor: '#ffffff',
-                                bold: true,
-                                fontSize: 20,
-                            }
-                        },
-                    },
-                }
-
-
-            }
-            var chartMon = new google.visualization.AreaChart(document.getElementById('chart_Mon'));
-
-            chartMon.draw(datamon, optionsMon);
-
+        function pickZone5() {
+            sqlZone = 5;
+            document.getElementById("title").innerHTML = "Zone 5";
         }
+
+        function pickZone6() {
+            sqlZone = 6;
+            document.getElementById("title").innerHTML = "Zone 6";
+        }
+
+        function pickZone8() {
+            sqlZone = 8;
+            document.getElementById("title").innerHTML = "Zone 8";
+        }
+
+        function pickZone9() {
+            sqlZone = 9;
+            document.getElementById("title").innerHTML = "Zone 9";
+        }
+
+        function pickZone100() {
+            sqlZone = 100;
+            document.getElementById("title").innerHTML = "Zone 100";
+        }
+
+        function pickZone102() {
+            sqlZone = 102;
+            document.getElementById("title").innerHTML = "Zone 102";
+        }
+
     </script>
+
+    <div class="container-fluid">
+        <div class="dropdown first">
+            <button onclick="myFunction()" class="dropbtn">Zoner</button>
+            <div id="myDropdown" class="dropdown-content">
+                <a href="javascript:pickZone5()">Zone 5</a>
+                <a href="javascript:pickZone6()">Zone 6</a>
+                <a href="javascript:pickZone8()">Zone 8</a>
+                <a href="javascript:pickZone9()">Zone 9</a>
+                <a href="javascript:pickZone100()">Zone 100</a>
+                <a href="javascript:pickZone102()">Zone 102</a>
+            </div>
+        </div>
+        <div class="week-picker second" data-mode="single"></div>
+    </div>
+    <div style="text-align: center; margin-top:10px !important;">
+        <!--        <h1 id="title">Zone 5</h1>-->
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            var jsondata = $.ajax({
+                url: "data.php",
+                dataType: "JSON",
+
+                success: function (data) {
+                    console.log(data)
+                    appendList(data)
+                    console.log(listList)
+                }, error: function (error) {
+                    console.log(error)
+                }
+            });
+        });
+
+        var zoneNumber = "5";
+        var weekNumber = "12 2020";
+        var weekList = ["2020-08-10", "2020-08-11", "2020-08-12", "2020-08-13", "2020-08-14"];
+        var listList = [[], [], [], [], []];
+
+        function appendList(dataArray) {
+            for (var i = 0; i < weekList.length; i++) {
+                for (var x = 0; x < dataArray.length; x++) {
+                    var date = new Date(dataArray[x].updated);
+                    var year = date.getFullYear();
+
+                    if ((date.getMonth() + 1) < 10)
+                        var month = "0" + (date.getMonth() + 1);
+                    else
+                        var month = (date.getMonth() + 1);
+
+                    if (date.getDate() < 10)
+                        var day = "0" + date.getDate();
+                    else
+                        var day = date.getDate();
+                    if ((year + "-" + month + "-" + day) == weekList[i] && dataArray[x].zone == zoneNumber) {
+                        listList[i].push(dataArray[x]);
+                    }
+                }
+            }
+        }
+
+        console.log(listList[0][0])
+
+    </script>
+    <canvas id="myChart" height="20%" width="80%"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script>
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'line',
+
+            // The data for our dataset
+            data: {
+                labels: ['08:00', '12:00', '15:00'],
+                datasets: [{
+                    label: 'Temperatur',
+                    backgroundColor: 'rgb(239,154,18)',
+                    borderColor: 'rgb(239,154,18)',
+                    data: [listList[0][0].temperature, listList[0][1].temperature, listList[0][2].temperature],
+                    fill: false,
+                }, {
+                    label: 'Luftfugtighed',
+                    backgroundColor: 'rgb(31,84,208)',
+                    borderColor: 'rgb(31,84,208)',
+                    data: [listList[0][0].humidity, listList[0][1].humidity, listList[0][2].humidity],
+                    fill: false,
+                }]
+            },
+
+            // Configuration options go here
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: "Zone 5"
+                },
+            }
+        });
+    </script>
+
 </head>
-<body>
-<div id="chart_Mon" style="width: 100% !important; height: 70% !important;"></div>
-</body>
 </html>
