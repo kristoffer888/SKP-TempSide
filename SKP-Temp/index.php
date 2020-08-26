@@ -34,28 +34,42 @@
         }
     </script>
     <script>
+
+        var zoneNumber = "5";
         function pickZone5() {
+            zoneNumber = "5";
             document.getElementById("title").innerHTML = "Zone 5";
+            listCall();
         }
 
         function pickZone6() {
+            zoneNumber = "6";
             document.getElementById("title").innerHTML = "Zone 6";
+            listCall();
         }
 
         function pickZone8() {
+            zoneNumber = "8";
             document.getElementById("title").innerHTML = "Zone 8";
+            listCall();
         }
 
         function pickZone9() {
+            zoneNumber = "9";
             document.getElementById("title").innerHTML = "Zone 9";
+            listCall();
         }
 
         function pickZone100() {
+            zoneNumber = "100";
             document.getElementById("title").innerHTML = "Zone 100";
+            listCall();
         }
 
         function pickZone102() {
+            zoneNumber = "102";
             document.getElementById("title").innerHTML = "Zone 102";
+            listCall();
         }
 
     </script>
@@ -75,7 +89,7 @@
         <div class="week-picker second" data-mode="single"></div>
     </div>
     <div style="text-align: center; margin-top:10px !important;">
-        <!--        <h1 id="title">Zone 5</h1>-->
+                <h1 id="title">Zone 5</h1>
     </div>
 
     <script>
@@ -94,12 +108,29 @@
             });
         });
 
-        var zoneNumber = "5";
+        function listCall() {
+            $(document).ready(function () {
+                var jsondata = $.ajax({
+                    url: "data.php",
+                    dataType: "JSON",
+
+                    success: function (data) {
+                        console.log(data)
+                        appendList(data)
+                        console.log(listList)
+                    }, error: function (error) {
+                        console.log(error)
+                    }
+                });
+            });
+        }
+
         var weekNumber = "12 2020";
         var weekList = ["2020-08-10", "2020-08-11", "2020-08-12", "2020-08-13", "2020-08-14"];
         var listList = [[], [], [], [], []];
 
         function appendList(dataArray) {
+            listList = [[], [], [], [], []];
             for (var i = 0; i < weekList.length; i++) {
                 for (var x = 0; x < dataArray.length; x++) {
                     var date = new Date(dataArray[x].updated);
@@ -124,11 +155,10 @@
 
 
     </script>
-    <canvas id="myChart" height="20%" width="80%"></canvas>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script>
         function drawChart() {
-            var ctx = document.getElementById('myChart').getContext('2d');
+            var ctx = document.getElementById('chart0').getContext('2d');
             var chart = new Chart(ctx, {
                 type: 'line',
 
@@ -137,25 +167,184 @@
                     labels: ['08:00', '12:00', '15:00'],
                     datasets: [{
                         label: 'Temperatur',
-                        backgroundColor: 'rgb(239,154,18)',
+                        backgroundColor: 'rgb(239,154,18,0.7)',
                         borderColor: 'rgb(239,154,18)',
                         data: [listList[0][0].temperature,listList[0][1].temperature,listList[0][2].temperature],
-                        fill: false,
+                        fill: true,
                     }, {
                         label: 'Luftfugtighed',
-                        backgroundColor: 'rgb(31,84,208)',
+                        backgroundColor: 'rgb(31,84,208,0.1)',
                         borderColor: 'rgb(31,84,208)',
                         data: [listList[0][0].humidity,listList[0][1].humidity,listList[0][2].humidity],
-                        fill: false,
+                        fill: true,
                     }]
                 },
 
                 // Configuration options go here
                 options: {
+                    scales:{
+                        yAxes:[{
+                            ticks:{
+                                beginAtZero: true
+                            }
+                        }]
+                    },
                     responsive: true,
                     title: {
                         display: true,
-                        text: "Zone 5"
+                        text: "Mandag"
+                    },
+                }
+            });
+            var ctx = document.getElementById('chart1').getContext('2d');
+            var chart = new Chart(ctx, {
+                type: 'line',
+
+                // The data for our dataset
+                data: {
+                    labels: ['08:00', '12:00', '15:00'],
+                    datasets: [{
+                        label: 'Temperatur',
+                        backgroundColor: 'rgb(239,154,18,0.7)',
+                        borderColor: 'rgb(239,154,18)',
+                        data: [listList[1][0].temperature,listList[1][1].temperature,listList[1][2].temperature],
+                        fill: true,
+                    }, {
+                        label: 'Luftfugtighed',
+                        backgroundColor: 'rgb(31,84,208,0.1)',
+                        borderColor: 'rgb(31,84,208)',
+                        data: [listList[1][0].humidity,listList[1][1].humidity,listList[1][2].humidity],
+                        fill: true,
+                    }]
+                },
+
+                // Configuration options go here
+                options: {
+                    scales:{
+                        yAxes:[{
+                            ticks:{
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: "Tirsdag"
+                    },
+                }
+            });
+            var ctx = document.getElementById('chart2').getContext('2d');
+            var chart = new Chart(ctx, {
+                type: 'line',
+
+                // The data for our dataset
+                data: {
+                    labels: ['08:00', '12:00', '15:00'],
+                    datasets: [{
+                        label: 'Temperatur',
+                        backgroundColor: 'rgb(239,154,18,0.7)',
+                        borderColor: 'rgb(239,154,18)',
+                        data: [listList[2][0].temperature,listList[2][1].temperature, listList[2][2].temperature],
+                        fill: true,
+                    }, {
+                        label: 'Luftfugtighed',
+                        backgroundColor: 'rgb(31,84,208,0.1)',
+                        borderColor: 'rgb(31,84,208)',
+                        data: [listList[2][0].humidity,listList[2][1].humidity,listList[2][2].humidity],
+                        fill: true,
+                    }]
+                },
+
+                // Configuration options go here
+                options: {
+                    scales:{
+                        yAxes:[{
+                            ticks:{
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: "Onsdag"
+                    },
+                }
+            });
+            var ctx = document.getElementById('chart3').getContext('2d');
+            var chart = new Chart(ctx, {
+                type: 'line',
+
+                // The data for our dataset
+                data: {
+                    labels: ['08:00', '12:00', '15:00'],
+                    datasets: [{
+                        label: 'Temperatur',
+                        backgroundColor: 'rgb(239,154,18,0.7)',
+                        borderColor: 'rgb(239,154,18)',
+                        data: [listList[3][0].temperature,listList[3][1].temperature,listList[3][2].temperature],
+                        fill: true,
+                    }, {
+                        label: 'Luftfugtighed',
+                        backgroundColor: 'rgb(31,84,208,0.1)',
+                        borderColor: 'rgb(31,84,208)',
+                        data: [listList[3][0].humidity,listList[3][1].humidity,listList[3][2].humidity],
+                        fill: true,
+                    }]
+                },
+
+                // Configuration options go here
+                options: {
+                    scales:{
+                        yAxes:[{
+                            ticks:{
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: "Torsdag"
+                    },
+                }
+            });
+            var ctx = document.getElementById('chart4').getContext('2d');
+            var chart = new Chart(ctx, {
+                type: 'line',
+
+                // The data for our dataset
+                data: {
+                    labels: ['08:00', '12:00', '15:00'],
+                    datasets: [{
+                        label: 'Temperatur',
+                        backgroundColor: 'rgb(239,154,18,0.7)',
+                        borderColor: 'rgb(239,154,18)',
+                        data: [listList[4][0].temperature,listList[4][1].temperature,listList[4][2].temperature],
+                        fill: true,
+                    }, {
+                        label: 'Luftfugtighed',
+                        backgroundColor: 'rgb(31,84,208,0.1)',
+                        borderColor: 'rgb(31,84,208)',
+                        data: [listList[4][0].humidity,listList[4][1].humidity,listList[4][2].humidity],
+                        fill: true,
+                    }]
+                },
+
+                // Configuration options go here
+                options: {
+                    scales:{
+                        yAxes:[{
+                            ticks:{
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: "Fredag"
                     },
                 }
             });
@@ -163,4 +352,11 @@
     </script>
 
 </head>
+<body>
+<canvas id="chart0" height="20%" width="80%"></canvas>
+<canvas id="chart1" height="20%" width="80%"></canvas>
+<canvas id="chart2" height="20%" width="80%"></canvas>
+<canvas id="chart3" height="20%" width="80%"></canvas>
+<canvas id="chart4" height="20%" width="80%"></canvas>
+</body>
 </html>
