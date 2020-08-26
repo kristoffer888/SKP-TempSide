@@ -34,35 +34,27 @@
         }
     </script>
     <script>
-        var sqlZone = 5;
-
         function pickZone5() {
-            sqlZone = 5;
             document.getElementById("title").innerHTML = "Zone 5";
         }
 
         function pickZone6() {
-            sqlZone = 6;
             document.getElementById("title").innerHTML = "Zone 6";
         }
 
         function pickZone8() {
-            sqlZone = 8;
             document.getElementById("title").innerHTML = "Zone 8";
         }
 
         function pickZone9() {
-            sqlZone = 9;
             document.getElementById("title").innerHTML = "Zone 9";
         }
 
         function pickZone100() {
-            sqlZone = 100;
             document.getElementById("title").innerHTML = "Zone 100";
         }
 
         function pickZone102() {
-            sqlZone = 102;
             document.getElementById("title").innerHTML = "Zone 102";
         }
 
@@ -124,50 +116,50 @@
                         var day = date.getDate();
                     if ((year + "-" + month + "-" + day) == weekList[i] && dataArray[x].zone == zoneNumber) {
                         listList[i].push(dataArray[x]);
-                        console.log(listList)
                     }
                 }
             }
+            drawChart()
         }
 
-        console.log(listList[0][0])
 
     </script>
     <canvas id="myChart" height="20%" width="80%"></canvas>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script>
+        function drawChart() {
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var chart = new Chart(ctx, {
+                type: 'line',
 
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var chart = new Chart(ctx, {
-            type: 'line',
-
-            // The data for our dataset
-            data: {
-                labels: ['08:00', '12:00', '15:00'],
-                datasets: [{
-                    label: 'Temperatur',
-                    backgroundColor: 'rgb(239,154,18)',
-                    borderColor: 'rgb(239,154,18)',
-                    data: [listList[0][0].temperature, listList[0][1].temperature, listList[0][2].temperature],
-                    fill: false,
-                }, {
-                    label: 'Luftfugtighed',
-                    backgroundColor: 'rgb(31,84,208)',
-                    borderColor: 'rgb(31,84,208)',
-                    data: [listList[0][0].humidity, listList[0][1].humidity, listList[0][2].humidity],
-                    fill: false,
-                }]
-            },
-
-            // Configuration options go here
-            options: {
-                responsive: true,
-                title: {
-                    display: true,
-                    text: "Zone 5"
+                // The data for our dataset
+                data: {
+                    labels: ['08:00', '12:00', '15:00'],
+                    datasets: [{
+                        label: 'Temperatur',
+                        backgroundColor: 'rgb(239,154,18)',
+                        borderColor: 'rgb(239,154,18)',
+                        data: [listList[0][0].temperature,listList[0][1].temperature,listList[0][2].temperature],
+                        fill: false,
+                    }, {
+                        label: 'Luftfugtighed',
+                        backgroundColor: 'rgb(31,84,208)',
+                        borderColor: 'rgb(31,84,208)',
+                        data: [listList[0][0].humidity,listList[0][1].humidity,listList[0][2].humidity],
+                        fill: false,
+                    }]
                 },
-            }
-        });
+
+                // Configuration options go here
+                options: {
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: "Zone 5"
+                    },
+                }
+            });
+        }
     </script>
 
 </head>
