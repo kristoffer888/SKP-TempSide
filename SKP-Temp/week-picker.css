@@ -12,7 +12,7 @@
 }
 
 input::placeholder, .week-picker > ._week-picker > input {
-    color: whitesmoke;
+    color: rgb(255,255,255);
 }
 
 ._week-picker ._middle ._popup {
