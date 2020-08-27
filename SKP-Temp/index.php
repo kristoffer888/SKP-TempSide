@@ -9,6 +9,7 @@
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script src="week-picker.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
@@ -193,7 +194,6 @@
 
 
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script>
         function drawChart() {
             $('#chart0').remove();
@@ -201,11 +201,16 @@
             $('#chart2').remove();
             $('#chart3').remove();
             $('#chart4').remove();
-            $('#chartContainer').append('<canvas id="chart0" height="30%" width="100%"></canvas>');
-            $('#chartContainer').append('<canvas id="chart1" height="30%" width="100%"></canvas>');
-            $('#chartContainer').append('<canvas id="chart2" height="30%" width="100%"></canvas>');
-            $('#chartContainer').append('<canvas id="chart3" height="30%" width="100%"></canvas>');
-            $('#chartContainer').append('<canvas id="chart4" height="30%" width="100%"></canvas>');
+            $('#padding0').remove();
+            $('#padding1').remove();
+            $('#padding2').remove();
+            $('#padding3').remove();
+            $('#padding4').remove();
+            $('#chartContainer').append('<canvas id="chart0" height="30%" width="100%"></canvas> <div id="padding0" style="padding-bottom: 50px"></div>');
+            $('#chartContainer').append('<canvas id="chart1" height="30%" width="100%"></canvas> <div id="padding1" style="padding-bottom: 50px"></div>');
+            $('#chartContainer').append('<canvas id="chart2" height="30%" width="100%"></canvas> <div id="padding2" style="padding-bottom: 50px"></div>');
+            $('#chartContainer').append('<canvas id="chart3" height="30%" width="100%"></canvas> <div id="padding3" style="padding-bottom: 50px"></div>');
+            $('#chartContainer').append('<canvas id="chart4" height="30%" width="100%"></canvas> <div id="padding4" style="padding-bottom: 50px"></div>');
 
             var ctx = document.getElementById('chart0').getContext('2d');
             var chart0 = new Chart(ctx, {
