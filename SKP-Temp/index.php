@@ -89,7 +89,7 @@
         <div class="week-picker second" data-mode="single"></div>
     </div>
     <div style="text-align: center; padding-bottom:25px !important;">
-                <h1 id="title">Zone 5</h1>
+        <h1 id="title">Zone 5</h1>
     </div>
 
     <script>
