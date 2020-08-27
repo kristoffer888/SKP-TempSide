@@ -10,6 +10,7 @@
     text-align: center;
     margin-left: 5px;
     cursor: pointer;
+    color: white;
 }
 
 input::placeholder, .week-picker > ._week-picker > input {
@@ -52,7 +53,6 @@ input::placeholder, .week-picker > ._week-picker > input {
     -webkit-user-select: none;
     user-select: none;
     color: #444;
-    cursor: pointer;
     background: #eee;
 }
 
@@ -104,6 +104,7 @@ input::placeholder, .week-picker > ._week-picker > input {
 	position: absolute;
 	background: #db6f6f;
 }*/
+
 ._week-picker ._middle ._popup ._oh {
     width: 100%;
     background-color: #dddddd;
