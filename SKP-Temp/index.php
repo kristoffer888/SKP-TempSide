@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="week-picker.css">
@@ -94,6 +95,9 @@
     </div>
 
     <script>
+        // var x = document.getElementById("input").value;
+        // console.log(x)
+
         $(document).ready(function () {
             var jsondata = $.ajax({
                 url: "data.php",
@@ -126,7 +130,40 @@
             });
         }
 
-        var weekNumber = "12 2020";
+        Date.prototype.addDays = function (days) {
+            var dat = new Date(this.valueOf());
+            dat.setDate(dat.getDate() + days);
+            return dat;
+        };
+
+        function getDates(startDate, stopDate) {
+            var dateArray = new Array();
+            var currentDate = startDate;
+            while (currentDate <= stopDate) {
+                dateArray.push(currentDate);
+                currentDate = currentDate.addDays(1);
+            }
+            return dateArray;
+        }
+        var weekList = [];
+        var firsDateOfWeek = "2020-07-24";
+        var dateSplit = firsDateOfWeek.split("-")
+
+        var dateArray = getDates(new Date(dateSplit[0], dateSplit[1], dateSplit[2]), new Date(dateSplit[0], dateSplit[1], parseInt(dateSplit[2])+4));
+        weekList=[]
+        for (i = 0; i < dateArray.length; i++) {
+
+            var q = new Date(dateArray[i]);
+            var year = q.getFullYear();
+            var month = q.getMonth() + 1;
+            var day = q.getDate();
+
+            weekList.push(year + '-' + month + '-' + day)
+        }
+        console.log(weekList);
+
+
+        var weekNumber;
         var weekList = ["2020-08-10", "2020-08-11", "2020-08-12", "2020-08-13", "2020-08-14"];
         var listList = [[], [], [], [], []];
 
@@ -338,7 +375,7 @@
                         fill: true,
                     }, {
                         label: 'Luftfugtighed',
-                        backgroundColor: 'rgba31,84,208,0.1)',
+                        backgroundColor: 'rgba(31,84,208,0.1)',
                         borderColor: 'rgb(31,84,208)',
                         data: [listList[3][0].humidity, listList[3][1].humidity, listList[3][2].humidity],
                         fill: true,
