@@ -88,7 +88,7 @@
         </div>
         <div class="week-picker second" data-mode="single"></div>
     </div>
-    <div style="text-align: center; margin-top:10px !important;">
+    <div style="text-align: center; padding-bottom:25px !important;">
                 <h1 id="title">Zone 5</h1>
     </div>
 
@@ -154,6 +154,8 @@
         }
 
 
+
+
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script>
@@ -182,17 +184,30 @@
 
                 // Configuration options go here
                 options: {
+                    legend: {
+                        labels: {
+                            fontSize: 15
+                        }
+                    },
                     scales:{
+                        xAxes:[{
+                            ticks:{
+                                fontSize: 15
+                            }
+                        }],
                         yAxes:[{
                             ticks:{
-                                beginAtZero: true
+                                suggestedMin: 0,
+                                suggestedMax: 70,
+                                fontSize: 15
                             }
                         }]
                     },
                     responsive: true,
                     title: {
                         display: true,
-                        text: "Mandag"
+                        text: "Mandag " + listList[0][0].updated.split(' ')[0],
+                        fontSize: 20
                     },
                 }
             });
@@ -220,17 +235,30 @@
 
                 // Configuration options go here
                 options: {
+                    legend: {
+                        labels: {
+                            fontSize: 15
+                        }
+                    },
                     scales:{
+                        xAxes:[{
+                            ticks:{
+                                fontSize: 15
+                            }
+                        }],
                         yAxes:[{
                             ticks:{
-                                beginAtZero: true
+                                suggestedMin: 0,
+                                suggestedMax: 70,
+                                fontSize: 15
                             }
                         }]
                     },
                     responsive: true,
                     title: {
                         display: true,
-                        text: "Tirsdag"
+                        text: "Tirsdag " + listList[1][0].updated.split(' ')[0],
+                        fontSize: 20
                     },
                 }
             });
@@ -258,17 +286,30 @@
 
                 // Configuration options go here
                 options: {
+                    legend: {
+                        labels: {
+                            fontSize: 15
+                        }
+                    },
                     scales:{
+                        xAxes:[{
+                            ticks:{
+                                fontSize: 15
+                            }
+                        }],
                         yAxes:[{
                             ticks:{
-                                beginAtZero: true
+                                suggestedMin: 0,
+                                suggestedMax: 70,
+                                fontSize: 15
                             }
                         }]
                     },
                     responsive: true,
                     title: {
                         display: true,
-                        text: "Onsdag"
+                        text: "Onsdag " + listList[2][0].updated.split(' ')[0],
+                        fontSize: 20
                     },
                 }
             });
@@ -296,17 +337,30 @@
 
                 // Configuration options go here
                 options: {
+                    legend: {
+                        labels: {
+                            fontSize: 15
+                        }
+                    },
                     scales:{
+                        xAxes:[{
+                            ticks:{
+                                fontSize: 15
+                            }
+                        }],
                         yAxes:[{
                             ticks:{
-                                beginAtZero: true
+                                suggestedMin: 0,
+                                suggestedMax: 70,
+                                fontSize: 15
                             }
                         }]
                     },
                     responsive: true,
                     title: {
                         display: true,
-                        text: "Torsdag"
+                        text: "Torsdag " + listList[3][0].updated.split(' ')[0],
+                        fontSize: 20
                     },
                 }
             });
@@ -334,17 +388,30 @@
 
                 // Configuration options go here
                 options: {
+                    legend: {
+                        labels: {
+                            fontSize: 15
+                        }
+                    },
                     scales:{
+                        xAxes:[{
+                            ticks:{
+                                fontSize: 15
+                            }
+                        }],
                         yAxes:[{
                             ticks:{
-                                beginAtZero: true
+                                suggestedMin: 0,
+                                suggestedMax: 70,
+                                fontSize: 15
                             }
                         }]
                     },
                     responsive: true,
                     title: {
                         display: true,
-                        text: "Fredag"
+                        text: "Fredag " + listList[4][0].updated.split(' ')[0],
+                        fontSize: 20
                     },
                 }
             });
@@ -353,10 +420,14 @@
 
 </head>
 <body>
-<canvas id="chart0" height="20%" width="80%"></canvas>
-<canvas id="chart1" height="20%" width="80%"></canvas>
-<canvas id="chart2" height="20%" width="80%"></canvas>
-<canvas id="chart3" height="20%" width="80%"></canvas>
-<canvas id="chart4" height="20%" width="80%"></canvas>
+<canvas id="chart0" height="30%" width="100%"></canvas>
+<div style="padding-bottom: 100px"></div>
+<canvas id="chart1" height="30%" width="100%"></canvas>
+<div style="padding-bottom: 100px"></div>
+<canvas id="chart2" height="30%" width="100%"></canvas>
+<div style="padding-bottom: 100px"></div>
+<canvas id="chart3" height="30%" width="100%"></canvas>
+<div style="padding-bottom: 100px"></div>
+<canvas id="chart4" height="30%" width="100%"></canvas>
 </body>
 </html>
