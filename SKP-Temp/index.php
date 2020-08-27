@@ -36,12 +36,10 @@
     <script>
 
         var zoneNumber = "5";
-
         function pickZone5() {
             zoneNumber = "5";
             document.getElementById("title").innerHTML = "Zone 5";
             listCall();
-
         }
 
         function pickZone6() {
@@ -90,8 +88,8 @@
         </div>
         <div class="week-picker second" data-mode="single"></div>
     </div>
-    <div style="text-align: center; margin-top:10px !important;">
-        <h1 id="title">Zone 5</h1>
+    <div style="text-align: center; padding-bottom:25px !important;">
+                <h1 id="title">Zone 5</h1>
     </div>
 
     <script>
@@ -152,31 +150,18 @@
                     }
                 }
             }
-
             drawChart()
         }
+
+
 
 
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script>
-
-
         function drawChart() {
-            $('#chart0').remove();
-            $('#chart1').remove();
-            $('#chart2').remove();
-            $('#chart3').remove();
-            $('#chart4').remove();
-            $('#chartContainer').append('<canvas id="chart0"></canvas>');
-            $('#chartContainer').append('<canvas id="chart1"></canvas>');
-            $('#chartContainer').append('<canvas id="chart2"></canvas>');
-            $('#chartContainer').append('<canvas id="chart3"></canvas>');
-            $('#chartContainer').append('<canvas id="chart4"></canvas>');
-
-
             var ctx = document.getElementById('chart0').getContext('2d');
-            var chart0 = new Chart(ctx, {
+            var chart = new Chart(ctx, {
                 type: 'line',
 
                 // The data for our dataset
@@ -186,35 +171,48 @@
                         label: 'Temperatur',
                         backgroundColor: 'rgb(239,154,18,0.7)',
                         borderColor: 'rgb(239,154,18)',
-                        data: [listList[0][0].temperature, listList[0][1].temperature, listList[0][2].temperature],
+                        data: [listList[0][0].temperature,listList[0][1].temperature,listList[0][2].temperature],
                         fill: true,
                     }, {
                         label: 'Luftfugtighed',
                         backgroundColor: 'rgb(31,84,208,0.1)',
                         borderColor: 'rgb(31,84,208)',
-                        data: [listList[0][0].humidity, listList[0][1].humidity, listList[0][2].humidity],
+                        data: [listList[0][0].humidity,listList[0][1].humidity,listList[0][2].humidity],
                         fill: true,
                     }]
                 },
 
                 // Configuration options go here
                 options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true
+                    legend: {
+                        labels: {
+                            fontSize: 15
+                        }
+                    },
+                    scales:{
+                        xAxes:[{
+                            ticks:{
+                                fontSize: 15
+                            }
+                        }],
+                        yAxes:[{
+                            ticks:{
+                                suggestedMin: 0,
+                                suggestedMax: 70,
+                                fontSize: 15
                             }
                         }]
                     },
                     responsive: true,
                     title: {
                         display: true,
-                        text: "Mandag"
+                        text: "Mandag " + listList[0][0].updated.split(' ')[0],
+                        fontSize: 20
                     },
                 }
             });
             var ctx = document.getElementById('chart1').getContext('2d');
-            var chart1 = new Chart(ctx, {
+            var chart = new Chart(ctx, {
                 type: 'line',
 
                 // The data for our dataset
@@ -224,35 +222,48 @@
                         label: 'Temperatur',
                         backgroundColor: 'rgb(239,154,18,0.7)',
                         borderColor: 'rgb(239,154,18)',
-                        data: [listList[1][0].temperature, listList[1][1].temperature, listList[1][2].temperature],
+                        data: [listList[1][0].temperature,listList[1][1].temperature,listList[1][2].temperature],
                         fill: true,
                     }, {
                         label: 'Luftfugtighed',
                         backgroundColor: 'rgb(31,84,208,0.1)',
                         borderColor: 'rgb(31,84,208)',
-                        data: [listList[1][0].humidity, listList[1][1].humidity, listList[1][2].humidity],
+                        data: [listList[1][0].humidity,listList[1][1].humidity,listList[1][2].humidity],
                         fill: true,
                     }]
                 },
 
                 // Configuration options go here
                 options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true
+                    legend: {
+                        labels: {
+                            fontSize: 15
+                        }
+                    },
+                    scales:{
+                        xAxes:[{
+                            ticks:{
+                                fontSize: 15
+                            }
+                        }],
+                        yAxes:[{
+                            ticks:{
+                                suggestedMin: 0,
+                                suggestedMax: 70,
+                                fontSize: 15
                             }
                         }]
                     },
                     responsive: true,
                     title: {
                         display: true,
-                        text: "Tirsdag"
+                        text: "Tirsdag " + listList[1][0].updated.split(' ')[0],
+                        fontSize: 20
                     },
                 }
             });
             var ctx = document.getElementById('chart2').getContext('2d');
-            var chart2 = new Chart(ctx, {
+            var chart = new Chart(ctx, {
                 type: 'line',
 
                 // The data for our dataset
@@ -262,35 +273,48 @@
                         label: 'Temperatur',
                         backgroundColor: 'rgb(239,154,18,0.7)',
                         borderColor: 'rgb(239,154,18)',
-                        data: [listList[2][0].temperature, listList[2][1].temperature, listList[2][2].temperature],
+                        data: [listList[2][0].temperature,listList[2][1].temperature, listList[2][2].temperature],
                         fill: true,
                     }, {
                         label: 'Luftfugtighed',
                         backgroundColor: 'rgb(31,84,208,0.1)',
                         borderColor: 'rgb(31,84,208)',
-                        data: [listList[2][0].humidity, listList[2][1].humidity, listList[2][2].humidity],
+                        data: [listList[2][0].humidity,listList[2][1].humidity,listList[2][2].humidity],
                         fill: true,
                     }]
                 },
 
                 // Configuration options go here
                 options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true
+                    legend: {
+                        labels: {
+                            fontSize: 15
+                        }
+                    },
+                    scales:{
+                        xAxes:[{
+                            ticks:{
+                                fontSize: 15
+                            }
+                        }],
+                        yAxes:[{
+                            ticks:{
+                                suggestedMin: 0,
+                                suggestedMax: 70,
+                                fontSize: 15
                             }
                         }]
                     },
                     responsive: true,
                     title: {
                         display: true,
-                        text: "Onsdag"
+                        text: "Onsdag " + listList[2][0].updated.split(' ')[0],
+                        fontSize: 20
                     },
                 }
             });
             var ctx = document.getElementById('chart3').getContext('2d');
-            var chart3 = new Chart(ctx, {
+            var chart = new Chart(ctx, {
                 type: 'line',
 
                 // The data for our dataset
@@ -300,35 +324,48 @@
                         label: 'Temperatur',
                         backgroundColor: 'rgb(239,154,18,0.7)',
                         borderColor: 'rgb(239,154,18)',
-                        data: [listList[3][0].temperature, listList[3][1].temperature, listList[3][2].temperature],
+                        data: [listList[3][0].temperature,listList[3][1].temperature,listList[3][2].temperature],
                         fill: true,
                     }, {
                         label: 'Luftfugtighed',
                         backgroundColor: 'rgb(31,84,208,0.1)',
                         borderColor: 'rgb(31,84,208)',
-                        data: [listList[3][0].humidity, listList[3][1].humidity, listList[3][2].humidity],
+                        data: [listList[3][0].humidity,listList[3][1].humidity,listList[3][2].humidity],
                         fill: true,
                     }]
                 },
 
                 // Configuration options go here
                 options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true
+                    legend: {
+                        labels: {
+                            fontSize: 15
+                        }
+                    },
+                    scales:{
+                        xAxes:[{
+                            ticks:{
+                                fontSize: 15
+                            }
+                        }],
+                        yAxes:[{
+                            ticks:{
+                                suggestedMin: 0,
+                                suggestedMax: 70,
+                                fontSize: 15
                             }
                         }]
                     },
                     responsive: true,
                     title: {
                         display: true,
-                        text: "Torsdag"
+                        text: "Torsdag " + listList[3][0].updated.split(' ')[0],
+                        fontSize: 20
                     },
                 }
             });
             var ctx = document.getElementById('chart4').getContext('2d');
-            var chart4 = new Chart(ctx, {
+            var chart = new Chart(ctx, {
                 type: 'line',
 
                 // The data for our dataset
@@ -338,46 +375,59 @@
                         label: 'Temperatur',
                         backgroundColor: 'rgb(239,154,18,0.7)',
                         borderColor: 'rgb(239,154,18)',
-                        data: [listList[4][0].temperature, listList[4][1].temperature, listList[4][2].temperature],
+                        data: [listList[4][0].temperature,listList[4][1].temperature,listList[4][2].temperature],
                         fill: true,
                     }, {
                         label: 'Luftfugtighed',
                         backgroundColor: 'rgb(31,84,208,0.1)',
                         borderColor: 'rgb(31,84,208)',
-                        data: [listList[4][0].humidity, listList[4][1].humidity, listList[4][2].humidity],
+                        data: [listList[4][0].humidity,listList[4][1].humidity,listList[4][2].humidity],
                         fill: true,
                     }]
                 },
 
                 // Configuration options go here
                 options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true
+                    legend: {
+                        labels: {
+                            fontSize: 15
+                        }
+                    },
+                    scales:{
+                        xAxes:[{
+                            ticks:{
+                                fontSize: 15
+                            }
+                        }],
+                        yAxes:[{
+                            ticks:{
+                                suggestedMin: 0,
+                                suggestedMax: 70,
+                                fontSize: 15
                             }
                         }]
                     },
                     responsive: true,
                     title: {
                         display: true,
-                        text: "Fredag"
+                        text: "Fredag " + listList[4][0].updated.split(' ')[0],
+                        fontSize: 20
                     },
                 }
             });
-
         }
-
     </script>
 
 </head>
 <body>
-<div id="chartContainer">
-    <canvas id="chart0" height="20%" width="80%"></canvas>
-    <canvas id="chart1" height="20%" width="80%"></canvas>
-    <canvas id="chart2" height="20%" width="80%"></canvas>
-    <canvas id="chart3" height="20%" width="80%"></canvas>
-    <canvas id="chart4" height="20%" width="80%"></canvas>
-</div>
+<canvas id="chart0" height="30%" width="100%"></canvas>
+<div style="padding-bottom: 100px"></div>
+<canvas id="chart1" height="30%" width="100%"></canvas>
+<div style="padding-bottom: 100px"></div>
+<canvas id="chart2" height="30%" width="100%"></canvas>
+<div style="padding-bottom: 100px"></div>
+<canvas id="chart3" height="30%" width="100%"></canvas>
+<div style="padding-bottom: 100px"></div>
+<canvas id="chart4" height="30%" width="100%"></canvas>
 </body>
 </html>
