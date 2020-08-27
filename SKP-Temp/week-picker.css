@@ -5,14 +5,15 @@
 
 .week-picker > ._week-picker > input {
     height: 56px;
-    background: rgb(240, 174, 76);
+    background-color: rgb(240, 174, 76);
     border: 0px;
     text-align: center;
     margin-left: 5px;
+    cursor: pointer;
 }
 
 input::placeholder, .week-picker > ._week-picker > input {
-    color: rgb(255,255,255);
+    color: white;
 }
 
 ._week-picker ._middle ._popup {

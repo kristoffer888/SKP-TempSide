@@ -338,7 +338,7 @@
                         fill: true,
                     }, {
                         label: 'Luftfugtighed',
-                        backgroundColor: 'rgba(31,84,208,0.1)',
+                        backgroundColor: 'rgba31,84,208,0.1)',
                         borderColor: 'rgb(31,84,208)',
                         data: [listList[3][0].humidity, listList[3][1].humidity, listList[3][2].humidity],
                         fill: true,
