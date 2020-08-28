@@ -138,8 +138,8 @@
         };
 
         var weekList = [];
-        var firsDateOfWeek;
-        var dateSplit = firsDateOfWeek.split("-")
+        var firstDateOfWeek = "2020-07-10";
+        var dateSplit = firstDateOfWeek.split("-")
         var listList = [[], [], [], [], []];
 
         function getDates(startDate, stopDate) {
