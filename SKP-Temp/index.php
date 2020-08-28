@@ -5,7 +5,8 @@
     <link rel="stylesheet" href="style.css"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+    <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" SameSite=None; Secure rel="stylesheet"
+          type="text/css">
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -96,8 +97,6 @@
     </div>
 
     <script>
-        // var x = document.getElementById("input").value;
-        // console.log(x)
 
         $(document).ready(function () {
             var jsondata = $.ajax({
@@ -105,9 +104,7 @@
                 dataType: "JSON",
 
                 success: function (data) {
-                    console.log(data)
                     appendList(data)
-                    console.log(listList)
                 }, error: function (error) {
                     console.log(error)
                 }
@@ -121,9 +118,7 @@
                     dataType: "JSON",
 
                     success: function (data) {
-                        console.log(data)
                         appendList(data)
-                        console.log(listList)
                     }, error: function (error) {
                         console.log(error)
                     }
@@ -131,52 +126,57 @@
             });
         }
 
-        Date.prototype.addDays = function (days) {
-            var dat = new Date(this.valueOf());
-            dat.setDate(dat.getDate() + days);
-            return dat;
-        };
-
+        var gg;
         var weekList = [];
-        var firstDateOfWeek = "2020-07-10";
+        var firstDateOfWeek = "2020-08-10";
         var dateSplit = firstDateOfWeek.split("-")
         var listList = [[], [], [], [], []];
 
-        function getDates(startDate, stopDate) {
-            var dateArray = [];
-            var currentDate = startDate;
-            while (currentDate <= stopDate) {
-                dateArray.push(currentDate);
-                currentDate = currentDate.addDays(1);
-            }
-            return dateArray;
-        }
 
         function appendList(dataArray) {
-            weekList =[];
+            Date.prototype.addDays = function (days) {
+                var dat = new Date(this.valueOf());
+                dat.setDate(dat.getDate() + days);
+                return dat;
+            };
+
+            function getDates(startDate, stopDate) {
+                var dateArray = [];
+                var currentDate = startDate;
+                while (currentDate <= stopDate) {
+                    dateArray.push(currentDate);
+                    currentDate = currentDate.addDays(1);
+                }
+                return dateArray;
+            }
+
+
             var dateArray = getDates(new Date(dateSplit[0], dateSplit[1], dateSplit[2]), new Date(dateSplit[0], dateSplit[1], parseInt(dateSplit[2]) + 4));
             weekList = []
+            console.log(firstDateOfWeek)
+            dateSplit = firstDateOfWeek.split("-")
             for (i = 0; i < dateArray.length; i++) {
 
                 var q = new Date(dateArray[i]);
                 var year1 = q.getFullYear();
 
                 if (q.getMonth() + 1 < 10) {
-                    var month1 = '0' + (q.getMonth() + 1);
-                } else var month1 = q.getMonth() + 1;
+                    var month1 = '0' + (q.getMonth());
+                } else var month1 = q.getMonth();
 
                 if (q.getDate() < 10) {
                     var day1 = '0' + q.getDate();
                 } else var day1 = q.getDate();
-
                 weekList.push(year1 + '-' + month1 + '-' + day1)
             }
+            console.log(weekList)
+
+
             listList = [[], [], [], [], []];
             for (var i = 0; i < weekList.length; i++) {
                 for (var x = 0; x < dataArray.length; x++) {
                     var date = new Date(dataArray[x].updated);
                     var year = date.getFullYear();
-
                     if ((date.getMonth() + 1) < 10)
                         var month = "0" + (date.getMonth() + 1);
                     else
@@ -191,10 +191,21 @@
                     }
                 }
             }
+            for (var q = 0; q < listList.length; q++) {
+                if (listList[q].length == 0) {
+                    var feed = {humidity: "0", temperature: "0", updated: "Missing-Data"}
+                    listList[q].push(feed);
+                    listList[q].push(feed);
+                    listList[q].push(feed);
+                } else if (listList[q].length == 2) {
+                    listList[q].push(listList[q][1]);
+                } else if (listList[q].length == 1) {
+                    listList[q].push(listList[q][0]);
+                    listList[q].push(listList[q][0]);
+                } else {}
+            }
 
-            console.log(weekList)
-            console.log(zoneNumber)
-            console.log(listList)
+            //console.log(weekList)
             drawChart()
         }
 
