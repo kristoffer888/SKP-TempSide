@@ -137,8 +137,13 @@
             return dat;
         };
 
+        var weekList = [];
+        var firsDateOfWeek;
+        var dateSplit = firsDateOfWeek.split("-")
+        var listList = [[], [], [], [], []];
+
         function getDates(startDate, stopDate) {
-            var dateArray = new Array();
+            var dateArray = [];
             var currentDate = startDate;
             while (currentDate <= stopDate) {
                 dateArray.push(currentDate);
@@ -146,29 +151,26 @@
             }
             return dateArray;
         }
-        var weekList = [];
-        var firsDateOfWeek = "2020-07-24";
-        var dateSplit = firsDateOfWeek.split("-")
-
-        var dateArray = getDates(new Date(dateSplit[0], dateSplit[1], dateSplit[2]), new Date(dateSplit[0], dateSplit[1], parseInt(dateSplit[2])+4));
-        weekList=[]
-        for (i = 0; i < dateArray.length; i++) {
-
-            var q = new Date(dateArray[i]);
-            var year = q.getFullYear();
-            var month = q.getMonth() + 1;
-            var day = q.getDate();
-
-            weekList.push(year + '-' + month + '-' + day)
-        }
-        console.log(weekList);
-
-
-        var weekNumber;
-        var weekList = ["2020-08-10", "2020-08-11", "2020-08-12", "2020-08-13", "2020-08-14"];
-        var listList = [[], [], [], [], []];
 
         function appendList(dataArray) {
+            weekList =[];
+            var dateArray = getDates(new Date(dateSplit[0], dateSplit[1], dateSplit[2]), new Date(dateSplit[0], dateSplit[1], parseInt(dateSplit[2]) + 4));
+            weekList = []
+            for (i = 0; i < dateArray.length; i++) {
+
+                var q = new Date(dateArray[i]);
+                var year1 = q.getFullYear();
+
+                if (q.getMonth() + 1 < 10) {
+                    var month1 = '0' + (q.getMonth() + 1);
+                } else var month1 = q.getMonth() + 1;
+
+                if (q.getDate() < 10) {
+                    var day1 = '0' + q.getDate();
+                } else var day1 = q.getDate();
+
+                weekList.push(year1 + '-' + month1 + '-' + day1)
+            }
             listList = [[], [], [], [], []];
             for (var i = 0; i < weekList.length; i++) {
                 for (var x = 0; x < dataArray.length; x++) {
@@ -189,6 +191,10 @@
                     }
                 }
             }
+
+            console.log(weekList)
+            console.log(zoneNumber)
+            console.log(listList)
             drawChart()
         }
 
@@ -206,11 +212,11 @@
             $('#padding2').remove();
             $('#padding3').remove();
             $('#padding4').remove();
-            $('#chartContainer').append('<canvas id="chart0" height="30%" width="100%"></canvas> <div id="padding0" style="padding-bottom: 50px"></div>');
-            $('#chartContainer').append('<canvas id="chart1" height="30%" width="100%"></canvas> <div id="padding1" style="padding-bottom: 50px"></div>');
-            $('#chartContainer').append('<canvas id="chart2" height="30%" width="100%"></canvas> <div id="padding2" style="padding-bottom: 50px"></div>');
-            $('#chartContainer').append('<canvas id="chart3" height="30%" width="100%"></canvas> <div id="padding3" style="padding-bottom: 50px"></div>');
-            $('#chartContainer').append('<canvas id="chart4" height="30%" width="100%"></canvas> <div id="padding4" style="padding-bottom: 50px"></div>');
+            $('#chartContainer').append('<canvas id="chart0" height="27%" width="100%"></canvas> <div id="padding0" style="padding-bottom: 50px"></div>');
+            $('#chartContainer').append('<canvas id="chart1" height="27%" width="100%"></canvas> <div id="padding1" style="padding-bottom: 50px"></div>');
+            $('#chartContainer').append('<canvas id="chart2" height="27%" width="100%"></canvas> <div id="padding2" style="padding-bottom: 50px"></div>');
+            $('#chartContainer').append('<canvas id="chart3" height="27%" width="100%"></canvas> <div id="padding3" style="padding-bottom: 50px"></div>');
+            $('#chartContainer').append('<canvas id="chart4" height="27%" width="100%"></canvas> <div id="padding4" style="padding-bottom: 50px"></div>');
 
             var ctx = document.getElementById('chart0').getContext('2d');
             var chart0 = new Chart(ctx, {
