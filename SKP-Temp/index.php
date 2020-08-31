@@ -129,13 +129,17 @@
         var gg;
         var weekList = [];
         var firstDateOfWeek = "2020-08-10";
+        var dateSplit = firstDateOfWeek.split('-');
         var listList = [[], [], [], [], []];
 
-        function appendList(dataArray) {
+
+        function getWeek(){
             weekList = []
-            console.log(firstDateOfWeek)
-            var dateSplit = firstDateOfWeek.split('-');
+            console.log(firstDateOfWeek);
+            var firstDateOfWeekPreSplit = firstDateOfWeek
+            dateSplit = firstDateOfWeek.split('-');
             firstDateOfWeek = new Date(dateSplit[0] + ',' + dateSplit[1] + ',' + dateSplit[2]);
+            console.log(firstDateOfWeek);
 
             for (i = 0; i < 5; i++) {
                 var nextDate = new Date(firstDateOfWeek);
@@ -148,8 +152,14 @@
                 weekList.push(year1 + '-' + month1 + '-' + day1);
             }
             console.log(weekList);
+            firstDateOfWeek = firstDateOfWeekPreSplit
 
+        }
 
+        function appendList(dataArray) {
+            //if (firstDateOfWeek == "2020-08-10") {
+                getWeek()
+            //}
 
             listList = [[], [], [], [], []];
             for (var i = 0; i < weekList.length; i++) {
@@ -172,7 +182,7 @@
             }
             for (var q = 0; q < listList.length; q++) {
                 if (listList[q].length == 0) {
-                    var feed = {humidity: "0", temperature: "0", updated: "Missing-Data"}
+                    var feed = {humidity: "0", temperature: "0", updated: "-\xa0Missing\xa0Data"}
                     listList[q].push(feed);
                     listList[q].push(feed);
                     listList[q].push(feed);
@@ -185,7 +195,7 @@
                 }
             }
 
-            //console.log(weekList)
+            console.log(listList)
             drawChart()
         }
 
@@ -234,8 +244,18 @@
                 // Configuration options go here
                 options: {
                     legend: {
+                        onHover: function(e) {
+                            e.target.style.cursor = 'pointer';
+                        },
                         labels: {
                             fontSize: 15
+                        }
+                    },
+                    hover: {
+                        onHover: function(e) {
+                            var point = this.getElementAtEvent(e);
+                            if (point.length) e.target.style.cursor = 'pointer';
+                            else e.target.style.cursor = 'default';
                         }
                     },
                     scales: {
@@ -285,8 +305,18 @@
                 // Configuration options go here
                 options: {
                     legend: {
+                        onHover: function(e) {
+                            e.target.style.cursor = 'pointer';
+                        },
                         labels: {
                             fontSize: 15
+                        }
+                    },
+                    hover: {
+                        onHover: function(e) {
+                            var point = this.getElementAtEvent(e);
+                            if (point.length) e.target.style.cursor = 'pointer';
+                            else e.target.style.cursor = 'default';
                         }
                     },
                     scales: {
@@ -336,8 +366,18 @@
                 // Configuration options go here
                 options: {
                     legend: {
+                        onHover: function(e) {
+                            e.target.style.cursor = 'pointer';
+                        },
                         labels: {
                             fontSize: 15
+                        }
+                    },
+                    hover: {
+                        onHover: function(e) {
+                            var point = this.getElementAtEvent(e);
+                            if (point.length) e.target.style.cursor = 'pointer';
+                            else e.target.style.cursor = 'default';
                         }
                     },
                     scales: {
@@ -387,8 +427,18 @@
                 // Configuration options go here
                 options: {
                     legend: {
+                        onHover: function(e) {
+                            e.target.style.cursor = 'pointer';
+                        },
                         labels: {
                             fontSize: 15
+                        }
+                    },
+                    hover: {
+                        onHover: function(e) {
+                            var point = this.getElementAtEvent(e);
+                            if (point.length) e.target.style.cursor = 'pointer';
+                            else e.target.style.cursor = 'default';
                         }
                     },
                     scales: {
@@ -438,8 +488,18 @@
                 // Configuration options go here
                 options: {
                     legend: {
+                        onHover: function(e) {
+                            e.target.style.cursor = 'pointer';
+                        },
                         labels: {
                             fontSize: 15
+                        }
+                    },
+                    hover: {
+                        onHover: function(e) {
+                            var point = this.getElementAtEvent(e);
+                            if (point.length) e.target.style.cursor = 'pointer';
+                            else e.target.style.cursor = 'default';
                         }
                     },
                     scales: {
