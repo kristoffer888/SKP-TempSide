@@ -129,47 +129,27 @@
         var gg;
         var weekList = [];
         var firstDateOfWeek = "2020-08-10";
-        var dateSplit = firstDateOfWeek.split("-")
+        var datesplit = firstDateOfWeek.split('-');
         var listList = [[], [], [], [], []];
 
-
         function appendList(dataArray) {
-            Date.prototype.addDays = function (days) {
-                var dat = new Date(this.valueOf());
-                dat.setDate(dat.getDate() + days);
-                return dat;
-            };
-
-            function getDates(startDate, stopDate) {
-                var dateArray = [];
-                var currentDate = startDate;
-                while (currentDate <= stopDate) {
-                    dateArray.push(currentDate);
-                    currentDate = currentDate.addDays(1);
-                }
-                return dateArray;
-            }
-
-
-            var dateArray = getDates(new Date(dateSplit[0], dateSplit[1], dateSplit[2]), new Date(dateSplit[0], dateSplit[1], parseInt(dateSplit[2]) + 4));
             weekList = []
             console.log(firstDateOfWeek)
-            dateSplit = firstDateOfWeek.split("-")
-            for (i = 0; i < dateArray.length; i++) {
+            datesplit = firstDateOfWeek.split('-');
+            firstDateOfWeek = new Date(datesplit[0] + ',' + datesplit[1] + ',' + datesplit[2]);
 
-                var q = new Date(dateArray[i]);
-                var year1 = q.getFullYear();
+            for (i = 0; i < 5; i++) {
+                var nextDate = new Date(firstDateOfWeek);
+                nextDate.setDate(firstDateOfWeek.getDate() + i);
 
-                if (q.getMonth() + 1 < 10) {
-                    var month1 = '0' + (q.getMonth());
-                } else var month1 = q.getMonth();
+                var year1 = nextDate.getFullYear();
+                var month1 = ('0' + (nextDate.getMonth() + 1)).slice(-2);
+                var day1 = ('0' + nextDate.getDate()).slice(-2);
 
-                if (q.getDate() < 10) {
-                    var day1 = '0' + q.getDate();
-                } else var day1 = q.getDate();
-                weekList.push(year1 + '-' + month1 + '-' + day1)
+                weekList.push(year1 + '-' + month1 + '-' + day1);
             }
-            console.log(weekList)
+            console.log(weekList);
+
 
 
             listList = [[], [], [], [], []];
@@ -202,7 +182,8 @@
                 } else if (listList[q].length == 1) {
                     listList[q].push(listList[q][0]);
                     listList[q].push(listList[q][0]);
-                } else {}
+                } else {
+                }
             }
 
             //console.log(weekList)
