@@ -129,14 +129,13 @@
         var gg;
         var weekList = [];
         var firstDateOfWeek = "2020-08-10";
-        var datesplit = firstDateOfWeek.split('-');
         var listList = [[], [], [], [], []];
 
         function appendList(dataArray) {
             weekList = []
             console.log(firstDateOfWeek)
-            datesplit = firstDateOfWeek.split('-');
-            firstDateOfWeek = new Date(datesplit[0] + ',' + datesplit[1] + ',' + datesplit[2]);
+            var dateSplit = firstDateOfWeek.split('-');
+            firstDateOfWeek = new Date(dateSplit[0] + ',' + dateSplit[1] + ',' + dateSplit[2]);
 
             for (i = 0; i < 5; i++) {
                 var nextDate = new Date(firstDateOfWeek);
