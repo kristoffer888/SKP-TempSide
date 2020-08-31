@@ -2,6 +2,7 @@
     if (!window.moment) throw new Error("moment.js not found; please place it in the global scope.");
     if (!window.jQuery && !window.$) throw new Error("jQuery not found; please place it in the global scope.");
 
+
     var getLocale = function (locale) {
         var loc;
         switch (locale) {
@@ -250,10 +251,10 @@
             },
             toggleWeek: function (week, year) {
                 var date = moment().year(year).isoWeek(week).startOf("isoWeek").format("YYYY-MM-DD");
-                gg = "date = " + date;
-                firstDateOfWeek = date;
-                listCall();
+                firstDateOfWeek = date
+                listCall()
                 var ind = this.weekPicker.chosen.indexOf(date);
+
                 if (ind !== -1) {
                     this.weekPicker.chosen.splice(ind, 1);
                 } else if (this.weekPicker.mode == "single") {
