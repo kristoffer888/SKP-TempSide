@@ -11,6 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
     <script src="week-picker.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
@@ -182,7 +183,7 @@
             }
             for (var q = 0; q < listList.length; q++) {
                 if (listList[q].length == 0) {
-                    var feed = {humidity: "0", temperature: "0", updated: "-\xa0Missing\xa0Data"}
+                    var feed = {humidity: "0", temperature: "0", updated: "\xa0Missing\xa0Data"}
                     listList[q].push(feed);
                     listList[q].push(feed);
                     listList[q].push(feed);
@@ -243,6 +244,29 @@
 
                 // Configuration options go here
                 options: {
+                    plugins: {
+                        datalabels: {
+                            display: true,
+                            anchor: 'center',
+                            align: 'top',
+                            offset: 10,
+                            color: function (context){
+                                var index = context.dataIndex;
+                                var value = context.dataset.data[index];
+                                var valueOrange = context.dataset.label;
+
+                                if(valueOrange === 'Temperatur') {
+                                    return value = 'rgb(239,154,18)';
+                                } else {
+                                    return value = 'rgb(31,84,208)';
+                                }
+                            },
+                            font: {
+                                size: 20,
+                                weight: 'bold'
+                            },
+                        }
+                    },
                     legend: {
                         onHover: function(e) {
                             e.target.style.cursor = 'pointer';
@@ -275,7 +299,7 @@
                     responsive: true,
                     title: {
                         display: true,
-                        text: "Mandag " + listList[0][0].updated.split(' ')[0],
+                        text: "Mandag  -  " + listList[0][0].updated.split(' ')[0],
                         fontSize: 20
                     },
                 }
@@ -304,6 +328,28 @@
 
                 // Configuration options go here
                 options: {
+                    plugins: {
+                        datalabels: {
+                            display: true,
+                            anchor: 'center',
+                            align: 'top',
+                            color: function (context){
+                                var index = context.dataIndex;
+                                var value = context.dataset.data[index];
+                                var valueOrange = context.dataset.label;
+
+                                if(valueOrange === 'Temperatur') {
+                                    return value = 'rgb(239,154,18)';
+                                } else {
+                                    return value = 'rgb(31,84,208)';
+                                }
+                            },
+                            font: {
+                                size: 20,
+                                weight: 'bold'
+                            },
+                        }
+                    },
                     legend: {
                         onHover: function(e) {
                             e.target.style.cursor = 'pointer';
@@ -336,7 +382,7 @@
                     responsive: true,
                     title: {
                         display: true,
-                        text: "Tirsdag " + listList[1][0].updated.split(' ')[0],
+                        text: "Tirsdag  -  " + listList[1][0].updated.split(' ')[0],
                         fontSize: 20
                     },
                 }
@@ -365,6 +411,28 @@
 
                 // Configuration options go here
                 options: {
+                    plugins: {
+                        datalabels: {
+                            display: true,
+                            anchor: 'center',
+                            align: 'top',
+                            color: function (context){
+                                var index = context.dataIndex;
+                                var value = context.dataset.data[index];
+                                var valueOrange = context.dataset.label;
+
+                                if(valueOrange === 'Temperatur') {
+                                    return value = 'rgb(239,154,18)';
+                                } else {
+                                    return value = 'rgb(31,84,208)';
+                                }
+                            },
+                            font: {
+                                size: 20,
+                                weight: 'bold'
+                            },
+                        }
+                    },
                     legend: {
                         onHover: function(e) {
                             e.target.style.cursor = 'pointer';
@@ -397,7 +465,7 @@
                     responsive: true,
                     title: {
                         display: true,
-                        text: "Onsdag " + listList[2][0].updated.split(' ')[0],
+                        text: "Onsdag  -  " + listList[2][0].updated.split(' ')[0],
                         fontSize: 20
                     },
                 }
@@ -426,6 +494,28 @@
 
                 // Configuration options go here
                 options: {
+                    plugins: {
+                        datalabels: {
+                            display: true,
+                            anchor: 'center',
+                            align: 'top',
+                            color: function (context){
+                                var index = context.dataIndex;
+                                var value = context.dataset.data[index];
+                                var valueOrange = context.dataset.label;
+
+                                if(valueOrange === 'Temperatur') {
+                                    return value = 'rgb(239,154,18)';
+                                } else {
+                                    return value = 'rgb(31,84,208)';
+                                }
+                            },
+                            font: {
+                                size: 20,
+                                weight: 'bold'
+                            },
+                        }
+                    },
                     legend: {
                         onHover: function(e) {
                             e.target.style.cursor = 'pointer';
@@ -458,7 +548,7 @@
                     responsive: true,
                     title: {
                         display: true,
-                        text: "Torsdag " + listList[3][0].updated.split(' ')[0],
+                        text: "Torsdag  -  " + listList[3][0].updated.split(' ')[0],
                         fontSize: 20
                     },
                 }
@@ -487,6 +577,43 @@
 
                 // Configuration options go here
                 options: {
+                    plugins: {
+                        datalabels: {
+                            display: true,
+                            anchor: 'center',
+                            align: 'top',
+                            // align: function (context){
+                            //     var index = context.dataIndex;
+                            //     var value = context.dataset.data[index];
+                            //     var Label = context.dataset.label;
+                            //     console.log(value[0])
+                            //
+                            //     if(Math.abs(value[0]) - Math.abs(value[1]) < 5){
+                            //         return value[0] = 'top';
+                            //         return value[1] = 'bottom';
+                            //     }
+                            //     else{
+                            //         value[0] = 'top';
+                            //         value[1] = 'top';
+                            //     }
+                            // },
+                            color: function (context){
+                                var index = context.dataIndex;
+                                var value = context.dataset.data[index];
+                                var valueOrange = context.dataset.label;
+
+                                if(valueOrange === 'Temperatur') {
+                                    return value = 'rgb(239,154,18)';
+                                } else {
+                                    return value = 'rgb(31,84,208)';
+                                }
+                            },
+                            font: {
+                                size: 20,
+                                weight: 'bold'
+                            },
+                        }
+                    },
                     legend: {
                         onHover: function(e) {
                             e.target.style.cursor = 'pointer';
@@ -519,7 +646,7 @@
                     responsive: true,
                     title: {
                         display: true,
-                        text: "Fredag " + listList[4][0].updated.split(' ')[0],
+                        text: "Fredag  -  " + listList[4][0].updated.split(' ')[0],
                         fontSize: 20
                     },
                 }
