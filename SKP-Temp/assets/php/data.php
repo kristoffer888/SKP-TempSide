@@ -1,6 +1,6 @@
 <?php
-$conn = mysqli_connect("localhost", "root", "", "test");
-$result = mysqli_query($conn, "SELECT humidity, zone, temperature, updated FROM climatesensor WHERE ((time(updated) > time('08:00') and time(updated) < '08:05') or (time(updated) > '12:00' and time(updated) < '12:05') or (time(updated) > '15:00' AND time(updated) < '15:05'))");
+$conn = mysqli_connect("localhost", "infotavle.itd-sk", "OVSZY0Jt", "infotavle_itd_skp_sde_dk");
+$result = mysqli_query($conn, "SELECT humidity, zone, temperature, updated FROM climateSensor WHERE ((time(updated) > time('08:00') and time(updated) < '08:05') or (time(updated) > '12:00' and time(updated) < '12:05') or (time(updated) > '15:00' AND time(updated) < '15:05'))");
 
 $data = array();
 

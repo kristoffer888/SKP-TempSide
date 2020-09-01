@@ -126,16 +126,25 @@
             });
         }
 
-        var gg;
         var weekList = [];
-        var firstDateOfWeek = "2020-08-10";
+        var firstDateOfWeek = getMonday(new Date());
+        var year2 = firstDateOfWeek.getFullYear();
+        var month2 = ('0' + (firstDateOfWeek.getMonth() + 1)).slice(-2);
+        var day2 = ('0' + firstDateOfWeek.getDate()).slice(-2);
+        firstDateOfWeek = year2 + '-' + month2 + '-' + day2;
         var dateSplit = firstDateOfWeek.split('-');
         var listList = [[], [], [], [], []];
 
 
+        function getMonday(d) {
+            d = new Date(d);
+            var day = d.getDay(),
+                diff = d.getDate() - day + (day === 0 ? -6 : 1); // adjust when day is sunday
+            return new Date(d.setDate(diff));
+        }
+
         function getWeek() {
             weekList = []
-            console.log(firstDateOfWeek);
             var firstDateOfWeekPreSplit = firstDateOfWeek
             dateSplit = firstDateOfWeek.split('-');
             firstDateOfWeek = new Date(dateSplit[0] + ',' + dateSplit[1] + ',' + dateSplit[2]);
@@ -150,7 +159,6 @@
 
                 weekList.push(year1 + '-' + month1 + '-' + day1);
             }
-            console.log(weekList);
             firstDateOfWeek = firstDateOfWeekPreSplit
 
         }
@@ -165,15 +173,8 @@
                 for (var x = 0; x < dataArray.length; x++) {
                     var date = new Date(dataArray[x].updated);
                     var year = date.getFullYear();
-                    if ((date.getMonth() + 1) < 10)
-                        var month = "0" + (date.getMonth() + 1);
-                    else
-                        var month = (date.getMonth() + 1);
-
-                    if (date.getDate() < 10)
-                        var day = "0" + date.getDate();
-                    else
-                        var day = date.getDate();
+                    var month = ('0' + (date.getMonth() + 1)).slice(-2);
+                    var day = ('0' + date.getDate()).slice(-2);
                     if ((year + "-" + month + "-" + day) == weekList[i] && dataArray[x].zone == zoneNumber) {
                         listList[i].push(dataArray[x]);
                     }
@@ -191,10 +192,9 @@
                     listList[q].push(listList[q][0]);
                     listList[q].push(listList[q][0]);
                 } else {
+                    console.log("LMAO")
                 }
             }
-
-            console.log(listList)
             drawChart()
         }
 
@@ -579,18 +579,7 @@
                         datalabels: {
                             display: true,
                             anchor: 'center',
-                            // align: 'top',
-                            align: function (context) {
-                                var index = context.dataIndex;
-                                var value = context.dataset.data[index];
-                                var Label = context.dataset.label;
-
-                                if (Label == "Temperatur") {
-                                    return Label = 'top';
-                                } else {
-                                    return Label = 'bottom';
-                                }
-                            },
+                            align: 'top',
                             color: function (context) {
                                 var index = context.dataIndex;
                                 var value = context.dataset.data[index];
