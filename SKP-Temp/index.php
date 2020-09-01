@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="week-picker.css">
-    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/week-picker.css">
+    <link rel="stylesheet" href="assets/css/style.css"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" SameSite=None; Secure rel="stylesheet"
@@ -11,7 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
-    <script src="week-picker.js"></script>
+    <script src="assets/js/week-picker.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
     <meta charset="UTF-8">
@@ -100,7 +100,7 @@
 
         $(document).ready(function () {
             var jsondata = $.ajax({
-                url: "data.php",
+                url: "assets/php/data.php",
                 dataType: "JSON",
 
                 success: function (data) {
@@ -114,7 +114,7 @@
         function listCall() {
             $(document).ready(function () {
                 var jsondata = $.ajax({
-                    url: "data.php",
+                    url: "assets/php/data.php",
                     dataType: "JSON",
 
                     success: function (data) {
@@ -133,13 +133,12 @@
         var listList = [[], [], [], [], []];
 
 
-        function getWeek(){
+        function getWeek() {
             weekList = []
             console.log(firstDateOfWeek);
             var firstDateOfWeekPreSplit = firstDateOfWeek
             dateSplit = firstDateOfWeek.split('-');
             firstDateOfWeek = new Date(dateSplit[0] + ',' + dateSplit[1] + ',' + dateSplit[2]);
-            console.log(firstDateOfWeek);
 
             for (i = 0; i < 5; i++) {
                 var nextDate = new Date(firstDateOfWeek);
@@ -158,7 +157,7 @@
 
         function appendList(dataArray) {
             //if (firstDateOfWeek == "2020-08-10") {
-                getWeek()
+            getWeek()
             //}
 
             listList = [[], [], [], [], []];
@@ -249,12 +248,12 @@
                             anchor: 'center',
                             align: 'top',
                             offset: 10,
-                            color: function (context){
+                            color: function (context) {
                                 var index = context.dataIndex;
                                 var value = context.dataset.data[index];
                                 var valueOrange = context.dataset.label;
 
-                                if(valueOrange === 'Temperatur') {
+                                if (valueOrange === 'Temperatur') {
                                     return value = 'rgb(239,154,18)';
                                 } else {
                                     return value = 'rgb(31,84,208)';
@@ -267,7 +266,7 @@
                         }
                     },
                     legend: {
-                        onHover: function(e) {
+                        onHover: function (e) {
                             e.target.style.cursor = 'pointer';
                         },
                         labels: {
@@ -275,7 +274,7 @@
                         }
                     },
                     hover: {
-                        onHover: function(e) {
+                        onHover: function (e) {
                             var point = this.getElementAtEvent(e);
                             if (point.length) e.target.style.cursor = 'pointer';
                             else e.target.style.cursor = 'default';
@@ -332,12 +331,12 @@
                             display: true,
                             anchor: 'center',
                             align: 'top',
-                            color: function (context){
+                            color: function (context) {
                                 var index = context.dataIndex;
                                 var value = context.dataset.data[index];
                                 var valueOrange = context.dataset.label;
 
-                                if(valueOrange === 'Temperatur') {
+                                if (valueOrange === 'Temperatur') {
                                     return value = 'rgb(239,154,18)';
                                 } else {
                                     return value = 'rgb(31,84,208)';
@@ -350,7 +349,7 @@
                         }
                     },
                     legend: {
-                        onHover: function(e) {
+                        onHover: function (e) {
                             e.target.style.cursor = 'pointer';
                         },
                         labels: {
@@ -358,7 +357,7 @@
                         }
                     },
                     hover: {
-                        onHover: function(e) {
+                        onHover: function (e) {
                             var point = this.getElementAtEvent(e);
                             if (point.length) e.target.style.cursor = 'pointer';
                             else e.target.style.cursor = 'default';
@@ -415,12 +414,12 @@
                             display: true,
                             anchor: 'center',
                             align: 'top',
-                            color: function (context){
+                            color: function (context) {
                                 var index = context.dataIndex;
                                 var value = context.dataset.data[index];
                                 var valueOrange = context.dataset.label;
 
-                                if(valueOrange === 'Temperatur') {
+                                if (valueOrange === 'Temperatur') {
                                     return value = 'rgb(239,154,18)';
                                 } else {
                                     return value = 'rgb(31,84,208)';
@@ -433,7 +432,7 @@
                         }
                     },
                     legend: {
-                        onHover: function(e) {
+                        onHover: function (e) {
                             e.target.style.cursor = 'pointer';
                         },
                         labels: {
@@ -441,7 +440,7 @@
                         }
                     },
                     hover: {
-                        onHover: function(e) {
+                        onHover: function (e) {
                             var point = this.getElementAtEvent(e);
                             if (point.length) e.target.style.cursor = 'pointer';
                             else e.target.style.cursor = 'default';
@@ -498,12 +497,12 @@
                             display: true,
                             anchor: 'center',
                             align: 'top',
-                            color: function (context){
+                            color: function (context) {
                                 var index = context.dataIndex;
                                 var value = context.dataset.data[index];
                                 var valueOrange = context.dataset.label;
 
-                                if(valueOrange === 'Temperatur') {
+                                if (valueOrange === 'Temperatur') {
                                     return value = 'rgb(239,154,18)';
                                 } else {
                                     return value = 'rgb(31,84,208)';
@@ -516,7 +515,7 @@
                         }
                     },
                     legend: {
-                        onHover: function(e) {
+                        onHover: function (e) {
                             e.target.style.cursor = 'pointer';
                         },
                         labels: {
@@ -524,7 +523,7 @@
                         }
                     },
                     hover: {
-                        onHover: function(e) {
+                        onHover: function (e) {
                             var point = this.getElementAtEvent(e);
                             if (point.length) e.target.style.cursor = 'pointer';
                             else e.target.style.cursor = 'default';
@@ -580,41 +579,38 @@
                         datalabels: {
                             display: true,
                             anchor: 'center',
-                            align: 'top',
-                            // align: function (context){
-                            //     var index = context.dataIndex;
-                            //     var value = context.dataset.data[index];
-                            //     var Label = context.dataset.label;
-                            //     console.log(value[0])
-                            //
-                            //     if(Math.abs(value[0]) - Math.abs(value[1]) < 5){
-                            //         return value[0] = 'top';
-                            //         return value[1] = 'bottom';
-                            //     }
-                            //     else{
-                            //         value[0] = 'top';
-                            //         value[1] = 'top';
-                            //     }
-                            // },
-                            color: function (context){
+                            // align: 'top',
+                            align: function (context) {
+                                var index = context.dataIndex;
+                                var value = context.dataset.data[index];
+                                var Label = context.dataset.label;
+
+                                if (Label == "Temperatur") {
+                                    return Label = 'top';
+                                } else {
+                                    return Label = 'bottom';
+                                }
+                            },
+                            color: function (context) {
                                 var index = context.dataIndex;
                                 var value = context.dataset.data[index];
                                 var valueOrange = context.dataset.label;
 
-                                if(valueOrange === 'Temperatur') {
+                                if (valueOrange === 'Temperatur') {
                                     return value = 'rgb(239,154,18)';
                                 } else {
                                     return value = 'rgb(31,84,208)';
                                 }
                             },
+                            borderColor: 'green',
                             font: {
                                 size: 20,
-                                weight: 'bold'
+                                weight: 'bold',
                             },
                         }
                     },
                     legend: {
-                        onHover: function(e) {
+                        onHover: function (e) {
                             e.target.style.cursor = 'pointer';
                         },
                         labels: {
@@ -622,7 +618,7 @@
                         }
                     },
                     hover: {
-                        onHover: function(e) {
+                        onHover: function (e) {
                             var point = this.getElementAtEvent(e);
                             if (point.length) e.target.style.cursor = 'pointer';
                             else e.target.style.cursor = 'default';
