@@ -5,7 +5,8 @@
     <link rel="stylesheet" href="assets/css/style.css"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" SameSite=None; Secure rel="stylesheet" type="text/css">
+    <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" SameSite=None; Secure rel="stylesheet"
+          type="text/css">
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
@@ -35,63 +36,26 @@
         }
     </script>
     <script>
+        var zoneNumber = 5;
 
-        var zoneNumber = "5";
-
-        function pickZone(){
-            zoneNumber = 5;
-            document.getElementById("title").innerHTML = "Zone"+ zoneNumber ;
+        function pickZone(obj) {
+            zoneNumber = $(obj).text().split(' ');
+            zoneNumber = zoneNumber[1]
+            document.getElementById("title").innerHTML = "Zone " + zoneNumber;
             listCall();
         }
-
-        function pickZone5() {
-            zoneNumber = "5";
-            document.getElementById("title").innerHTML = "Zone 5";
-            listCall();
-        }
-
-        function pickZone6() {
-            zoneNumber = "6";
-            document.getElementById("title").innerHTML = "Zone 6";
-            listCall();
-        }
-
-        function pickZone8() {
-            zoneNumber = "8";
-            document.getElementById("title").innerHTML = "Zone 8";
-            listCall();
-        }
-
-        function pickZone9() {
-            zoneNumber = "9";
-            document.getElementById("title").innerHTML = "Zone 9";
-            listCall();
-        }
-
-        function pickZone100() {
-            zoneNumber = "100";
-            document.getElementById("title").innerHTML = "Zone 100";
-            listCall();
-        }
-
-        function pickZone102() {
-            zoneNumber = "102";
-            document.getElementById("title").innerHTML = "Zone 102";
-            listCall();
-        }
-
     </script>
 
     <div class="container-fluid">
         <div class="dropdown first">
             <button onclick="myFunction()" class="dropbtn">Zoner</button>
             <div id="myDropdown" class="dropdown-content">
-                <a href="javascript:pickZone5()">Zone 5</a>
-                <a href="javascript:pickZone6()">Zone 6</a>
-                <a href="javascript:pickZone8()">Zone 8</a>
-                <a href="javascript:pickZone9()">Zone 9</a>
-                <a href="javascript:pickZone100()">Zone 100</a>
-                <a href="javascript:pickZone102()">Zone 102</a>
+                <a onclick='pickZone(this)'>Zone 5</a>
+                <a onclick='pickZone(this)'>Zone 6</a>
+                <a onclick='pickZone(this)'>Zone 8</a>
+                <a onclick='pickZone(this)'>Zone 9</a>
+                <a onclick='pickZone(this)'>Zone 100</a>
+                <a onclick='pickZone(this)'>Zone 102</a>
             </div>
         </div>
         <div class="week-picker second" data-mode="single"></div>
