@@ -5,8 +5,7 @@
     <link rel="stylesheet" href="assets/css/style.css"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" SameSite=None; Secure rel="stylesheet"
-          type="text/css">
+    <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" SameSite=None; Secure rel="stylesheet" type="text/css">
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
@@ -15,7 +14,7 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
     <meta charset="UTF-8">
-    <title>SKP Temperatur</title>
+    <title>SKP Klima</title>
 
     <script>
         function myFunction() {
@@ -38,6 +37,12 @@
     <script>
 
         var zoneNumber = "5";
+
+        function pickZone(){
+            zoneNumber = 5;
+            document.getElementById("title").innerHTML = "Zone"+ zoneNumber ;
+            listCall();
+        }
 
         function pickZone5() {
             zoneNumber = "5";
@@ -164,9 +169,7 @@
         }
 
         function appendList(dataArray) {
-            //if (firstDateOfWeek == "2020-08-10") {
             getWeek()
-            //}
 
             listList = [[], [], [], [], []];
             for (var i = 0; i < weekList.length; i++) {
@@ -192,7 +195,6 @@
                     listList[q].push(listList[q][0]);
                     listList[q].push(listList[q][0]);
                 } else {
-                    console.log("LMAO")
                 }
             }
             drawChart()
@@ -201,22 +203,17 @@
 
     </script>
     <script>
+
+        function resetCanvas() {
+            for (var i = 0; i < 5; i++) {
+                $('#chart' + i).remove();
+                $('#padding' + i).remove();
+                $('#chartContainer').append('<canvas id=' + "chart" + i + ' height="27%" width="100%"></canvas> <div id=' + "padding" + i + ' style="padding-bottom: 50px"></div>');
+            }
+        }
+
         function drawChart() {
-            $('#chart0').remove();
-            $('#chart1').remove();
-            $('#chart2').remove();
-            $('#chart3').remove();
-            $('#chart4').remove();
-            $('#padding0').remove();
-            $('#padding1').remove();
-            $('#padding2').remove();
-            $('#padding3').remove();
-            $('#padding4').remove();
-            $('#chartContainer').append('<canvas id="chart0" height="27%" width="100%"></canvas> <div id="padding0" style="padding-bottom: 50px"></div>');
-            $('#chartContainer').append('<canvas id="chart1" height="27%" width="100%"></canvas> <div id="padding1" style="padding-bottom: 50px"></div>');
-            $('#chartContainer').append('<canvas id="chart2" height="27%" width="100%"></canvas> <div id="padding2" style="padding-bottom: 50px"></div>');
-            $('#chartContainer').append('<canvas id="chart3" height="27%" width="100%"></canvas> <div id="padding3" style="padding-bottom: 50px"></div>');
-            $('#chartContainer').append('<canvas id="chart4" height="27%" width="100%"></canvas> <div id="padding4" style="padding-bottom: 50px"></div>');
+            resetCanvas()
 
             var ctx = document.getElementById('chart0').getContext('2d');
             var chart0 = new Chart(ctx, {
@@ -289,7 +286,7 @@
                         yAxes: [{
                             ticks: {
                                 suggestedMin: 0,
-                                suggestedMax: 70,
+                                suggestedMax: 80,
                                 fontSize: 15
                             }
                         }]
@@ -372,7 +369,7 @@
                         yAxes: [{
                             ticks: {
                                 suggestedMin: 0,
-                                suggestedMax: 70,
+                                suggestedMax: 80,
                                 fontSize: 15
                             }
                         }]
@@ -455,7 +452,7 @@
                         yAxes: [{
                             ticks: {
                                 suggestedMin: 0,
-                                suggestedMax: 70,
+                                suggestedMax: 80,
                                 fontSize: 15
                             }
                         }]
@@ -538,7 +535,7 @@
                         yAxes: [{
                             ticks: {
                                 suggestedMin: 0,
-                                suggestedMax: 70,
+                                suggestedMax: 80,
                                 fontSize: 15
                             }
                         }]
@@ -622,7 +619,7 @@
                         yAxes: [{
                             ticks: {
                                 suggestedMin: 0,
-                                suggestedMax: 70,
+                                suggestedMax: 80,
                                 fontSize: 15
                             }
                         }]
