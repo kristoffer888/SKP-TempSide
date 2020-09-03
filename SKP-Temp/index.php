@@ -100,14 +100,14 @@
             }
         }
         // Tilføjer data hvis der mangler
-        var feed = {humidity: "", temperature: "", updated: "\xa0Manglende\xa0Data"}
+        var feed = {humidity: "", temperature: "", updated: "Intet\xa0data\xa0fra\xa0denne\xa0dag"}
         for (var q = 0; q < timeList.length; q++) {
             if (timeList[q].length === 0) {
                 timeList[q].push(feed);
                 timeList[q].push(feed);
                 timeList[q].push(feed);
             } else if (timeList[q].length === 2) {
-                var feed1 = {humidity: "feed1", temperature: "feed1", updated: timeList[q][0].updated.split(' ')[0]}
+                var feed1 = {humidity: "0", temperature: "0", updated: timeList[q][0].updated.split(' ')[0]}
                 var a = (timeList[q][0].updated.split(" "))[1].split(":")[0]
                 var b = (timeList[q][1].updated.split(" "))[1].split(":")[0]
                 if (a === "08" && b === "12") {
@@ -117,11 +117,11 @@
                 } else if (a === "12" && b === "15") {
                     timeList[q].unshift(feed1);
                 }
+                timeList[q][0].updated += " \xa0-\xa0\xa0Manglende\xa0data\xa0fra\xa0"
             } else if (timeList[q].length === 1) {
                 var feed1 = {humidity: "0", temperature: "0", updated: timeList[q][0].updated.split(' ')[0]}
                 var a = (timeList[q][0].updated.split(" "))[1].split(":")[0]
                 if (a === "08") {
-                    timeList[q][0].updated += " Manglende\xa0data"
                     console.log(timeList[q][0].updated)
                     timeList[q].push(feed1);
                     timeList[q].push(feed1);
@@ -132,22 +132,32 @@
                     timeList[q].unshift(feed1)
                     timeList[q].unshift(feed1)
                 }
+                timeList[q][0].updated += " \xa0-\xa0\xa0Manglende\xa0data"
             } else {
             }
         }
-        console.log(weekList)
-        console.log(timeList)
+        //console.log(weekList)
+        //console.log(timeList)
         drawChart()
 
     }
 
-    function makeLabel(index){
-        var a = timeList[index][0].updated.split(' ')[0]
-        var c = timeList[index][0]
-        var b = timeList[index][0].updated.split(' ')[0].split('-').reverse().join("-")+timeList[0][0].updated.split(' ')[0].split('-').reverse().join("-")
-        console.log("a= "+a)
-        console.log("b= "+b)
-        console.log("c= "+c)
+    function makeChartTitle(index){
+        var a = timeList[index][0].updated.split(' ')[0].split('-').reverse().join("-")
+        // if (timeList[index][0].updated === " missing data"){}
+
+        if (timeList[index][0].updated.split(' ').length === 2 && timeList[index][0].updated.split(' ')[1] !== " -  Manglende data"){
+            a = timeList[index][0].updated.split(' ')[0]
+        }
+        else if (timeList[index][0].updated.split(' ')[1] === " -  Manglende data"){
+            console.log(timeList[index][0].updated)
+            a = timeList[index][0].updated
+        }
+        // if (timeList[index][0].updated.split(' ')[2] !== undefined){
+        //     a ="if " + timeList[index][0].updated.split(' ')[0].split('-').reverse().join("-")+timeList[index][0].updated.split(' ')[2]
+        // }
+        // console.log("a = " + a)
+        return a
     }
 
     // Den får datoen for mandagen i den valgte uge og returner en liste med de næste fire dage (mandag-fredag , yyyy-mm-dd)
@@ -208,7 +218,6 @@
     }
 
     function drawChart() {
-        makeLabel(0)
         resetCanvas()
         var ctx = document.getElementById('chart0').getContext('2d');
         var chart0 = new Chart(ctx, {
@@ -290,7 +299,7 @@
                 responsive: true,
                 title: {
                     display: true,
-                    text: "Mandag  -  " + timeList[0][0].updated.split(' ')[0].split('-').reverse().join("-")+timeList[0][0].updated.split(' ')[0].split('-').reverse().join("-"),
+                    text: "Mandag  -  " + makeChartTitle(0),
                     fontSize: 20
                 },
             }
@@ -376,7 +385,7 @@
                 responsive: true,
                 title: {
                     display: true,
-                    text: "Tirsdag  -  " + timeList[1][0].updated.split(' ')[0].split('-').reverse().join("-"),
+                    text: "Tirsdag  -  " + makeChartTitle(1),
                     fontSize: 20
                 },
             }
@@ -460,7 +469,7 @@
                 responsive: true,
                 title: {
                     display: true,
-                    text: "Onsdag  -  " + timeList[2][0].updated.split(' ')[0].split('-').reverse().join("-"),
+                    text: "Onsdag  -  " + makeChartTitle(2),
                     fontSize: 20
                 },
             }
@@ -543,7 +552,7 @@
                 responsive: true,
                 title: {
                     display: true,
-                    text: "Torsdag  -  " + timeList[3][0].updated.split(' ')[0].split('-').reverse().join("-"),
+                    text: "Torsdag  -  " + makeChartTitle(3),
                     fontSize: 20
                 },
             }
@@ -627,7 +636,7 @@
                 responsive: true,
                 title: {
                     display: true,
-                    text: "Fredag  -  " + timeList[4][0].updated.split(' ')[0].split('-').reverse().join("-"),
+                    text: "Fredag  -  " + makeChartTitle(4),
                     fontSize: 20
                 },
             }
