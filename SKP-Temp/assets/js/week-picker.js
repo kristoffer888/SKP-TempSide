@@ -252,7 +252,7 @@
             toggleWeek: function (week, year) {
                 var date = moment().year(year).isoWeek(week).startOf("isoWeek").format("YYYY-MM-DD");
                 firstDateOfWeek = date;
-                listCall()
+                startCall();
                 var ind = this.weekPicker.chosen.indexOf(date);
 
                 if (ind !== -1) {
