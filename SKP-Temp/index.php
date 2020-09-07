@@ -117,12 +117,11 @@
                 } else if (a === "12" && b === "15") {
                     timeList[q].unshift(feed1);
                 }
-                timeList[q][0].updated += " \xa0-\xa0\xa0Manglende\xa0data\xa0fra\xa0"
+                timeList[q][0].updated += " \xa0-\xa0\xa0Manglende\xa0data\xa0fra\xa0et\xa0eller\xa0flere\xa0tidspunkter"
             } else if (timeList[q].length === 1) {
                 var feed1 = {humidity: "0", temperature: "0", updated: timeList[q][0].updated.split(' ')[0]}
                 var a = (timeList[q][0].updated.split(" "))[1].split(":")[0]
                 if (a === "08") {
-                    console.log(timeList[q][0].updated)
                     timeList[q].push(feed1);
                     timeList[q].push(feed1);
                 } else if (a === "12") {
@@ -132,7 +131,7 @@
                     timeList[q].unshift(feed1)
                     timeList[q].unshift(feed1)
                 }
-                timeList[q][0].updated += " \xa0-\xa0\xa0Manglende\xa0data"
+                timeList[q][0].updated += " \xa0-\xa0\xa0Manglende\xa0data\xa0fra\xa0et\xa0eller\xa0flere\xa0tidspunkter"
             } else {
             }
         }
@@ -142,21 +141,18 @@
 
     }
 
-    function makeChartTitle(index){
+    function makeChartTitle(index) {
         var a = timeList[index][0].updated.split(' ')[0].split('-').reverse().join("-")
-        // if (timeList[index][0].updated === " missing data"){}
+        // var a = weekList[0].split('-').reverse().join("-") +" "+ timeList[index][0].updated.split(' ')[0]
 
-        if (timeList[index][0].updated.split(' ').length === 2 && timeList[index][0].updated.split(' ')[1] !== " -  Manglende data"){
-            a = timeList[index][0].updated.split(' ')[0]
+        if (timeList[index][0].updated.split(' ')[1] === " -  Manglende data fra et eller flere tidspunkter") {
+            console.log("c")
+            a = timeList[index][0].updated.split(' ')[0].split('-').reverse().join("-") + timeList[index][0].updated.split(' ')[1]
+        } else if (timeList[index][0].updated.split(' ')[2] === " -  Manglende data fra et eller flere tidspunkter") {
+            console.log("c")
+            a = timeList[index][0].updated.split(' ')[0].split('-').reverse().join("-") + timeList[index][0].updated.split(' ')[2]
         }
-        else if (timeList[index][0].updated.split(' ')[1] === " -  Manglende data"){
-            console.log(timeList[index][0].updated)
-            a = timeList[index][0].updated
-        }
-        // if (timeList[index][0].updated.split(' ')[2] !== undefined){
-        //     a ="if " + timeList[index][0].updated.split(' ')[0].split('-').reverse().join("-")+timeList[index][0].updated.split(' ')[2]
-        // }
-        // console.log("a = " + a)
+
         return a
     }
 
