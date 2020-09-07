@@ -49,7 +49,7 @@
 
 
     $(document).ready(function () {
-        var jsondata = $.ajax({
+        $.ajax({
             url: "assets/php/data.php",
             dataType: "JSON",
 
@@ -63,7 +63,7 @@
 
     function startCall() {
         $(document).ready(function () {
-            var jsondata = $.ajax({
+            $.ajax({
                 url: "assets/php/data.php",
                 dataType: "JSON",
 
@@ -94,22 +94,24 @@
                 var year = date.getFullYear();
                 var month = ('0' + (date.getMonth() + 1)).slice(-2);
                 var day = ('0' + date.getDate()).slice(-2);
-                if ((year + "-" + month + "-" + day) == weekList[i] && dataArray[x].zone == zoneNumber) {
+                if ((year + "-" + month + "-" + day) === weekList[i] && dataArray[x].zone === zoneNumber.toString()) {
                     timeList[i].push(dataArray[x]);
                 }
             }
         }
         // Tilføjer data hvis der mangler
         var feed = {humidity: "", temperature: "", updated: "\xa0-\xa0\xa0Intet\xa0data\xa0fra\xa0denne\xa0dag"}
+        var feed1 = {humidity: "0", temperature: "0", updated: ""}
+        var a;
+        var b;
         for (var q = 0; q < timeList.length; q++) {
             if (timeList[q].length === 0) {
                 timeList[q].push(feed);
                 timeList[q].push(feed);
                 timeList[q].push(feed);
             } else if (timeList[q].length === 2) {
-                var feed1 = {humidity: "0", temperature: "0", updated: timeList[q][0].updated.split(' ')[0]}
-                var a = (timeList[q][0].updated.split(" "))[1].split(":")[0]
-                var b = (timeList[q][1].updated.split(" "))[1].split(":")[0]
+                a = (timeList[q][0].updated.split(" "))[1].split(":")[0]
+                b = (timeList[q][1].updated.split(" "))[1].split(":")[0]
                 if (a === "08" && b === "12") {
                     timeList[q].push(feed1);
                 } else if (a === "08" && b === "15") {
@@ -119,8 +121,7 @@
                 }
                 timeList[q][0].updated += " \xa0-\xa0\xa0Manglende\xa0data\xa0fra\xa0et\xa0eller\xa0flere\xa0tidspunkter"
             } else if (timeList[q].length === 1) {
-                var feed1 = {humidity: "0", temperature: "0", updated: timeList[q][0].updated.split(' ')[0]}
-                var a = (timeList[q][0].updated.split(" "))[1].split(":")[0]
+                a = (timeList[q][0].updated.split(" "))[1].split(":")[0]
                 if (a === "08") {
                     timeList[q].push(feed1);
                     timeList[q].push(feed1);
@@ -145,11 +146,11 @@
         var a = timeList[index][0].updated
 
         if (timeList[index][0].updated.split(' ')[1] === " -  Manglende data fra et eller flere tidspunkter") {
-            console.log("c")
             a = timeList[index][0].updated.split(' ')[1]
         } else if (timeList[index][0].updated.split(' ')[2] === " -  Manglende data fra et eller flere tidspunkter") {
-            console.log("c")
             a = timeList[index][0].updated.split(' ')[2]
+        } else if (timeList[index][0].updated.split(' ').length === 2) {
+            a = " "
         }
 
         return a
@@ -214,8 +215,8 @@
 
     function drawChart() {
         resetCanvas()
-        var ctx = document.getElementById('chart0').getContext('2d');
-        var chart0 = new Chart(ctx, {
+
+        new Chart(document.getElementById('chart0').getContext('2d'), {
             type: 'line',
 
             // The data for our dataset
@@ -245,10 +246,8 @@
                         align: 'top',
                         offset: 10,
                         color: function (context) {
-                            var index = context.dataIndex;
-                            var value = context.dataset.data[index];
+                            var value;
                             var valueOrange = context.dataset.label;
-
 
                             if (valueOrange === 'Temperatur') {
                                 return value = 'rgb(239,154,18)';
@@ -294,14 +293,13 @@
                 responsive: true,
                 title: {
                     display: true,
-                    text: "Mandag  -  " + weekList[0].split('-').reverse().join("-") +" "+ makeChartTitle(0),
+                    text: "Mandag  -  " + weekList[0].split('-').reverse().join("-") + " " + makeChartTitle(0),
                     fontSize: 20
                 },
             }
         });
 
-        var ctx = document.getElementById('chart1').getContext('2d');
-        var chart1 = new Chart(ctx, {
+        new Chart(document.getElementById('chart1').getContext('2d'), {
             type: 'line',
 
             // The data for our dataset
@@ -331,8 +329,7 @@
                         align: 'top',
                         offset: 10,
                         color: function (context) {
-                            var index = context.dataIndex;
-                            var value = context.dataset.data[index];
+                            var value;
                             var valueOrange = context.dataset.label;
 
 
@@ -380,14 +377,13 @@
                 responsive: true,
                 title: {
                     display: true,
-                    text: "Tirsdag  -  " + weekList[1].split('-').reverse().join("-") +" "+ makeChartTitle(1),
+                    text: "Tirsdag  -  " + weekList[1].split('-').reverse().join("-") + " " + makeChartTitle(1),
                     fontSize: 20
                 },
             }
         });
 
-        var ctx = document.getElementById('chart2').getContext('2d');
-        var chart1 = new Chart(ctx, {
+        new Chart(document.getElementById('chart2').getContext('2d'), {
             type: 'line',
 
             // The data for our dataset
@@ -416,8 +412,7 @@
                         anchor: 'center',
                         align: 'top',
                         color: function (context) {
-                            var index = context.dataIndex;
-                            var value = context.dataset.data[index];
+                            var value;
                             var valueOrange = context.dataset.label;
 
                             if (valueOrange === 'Temperatur') {
@@ -464,13 +459,13 @@
                 responsive: true,
                 title: {
                     display: true,
-                    text: "Onsdag  -  " + weekList[2].split('-').reverse().join("-") +" "+ makeChartTitle(2),
+                    text: "Onsdag  -  " + weekList[2].split('-').reverse().join("-") + " " + makeChartTitle(2),
                     fontSize: 20
                 },
             }
         });
-        var ctx = document.getElementById('chart3').getContext('2d');
-        var chart3 = new Chart(ctx, {
+
+        new Chart(document.getElementById('chart3').getContext('2d'), {
             type: 'line',
 
             // The data for our dataset
@@ -499,8 +494,7 @@
                         anchor: 'center',
                         align: 'top',
                         color: function (context) {
-                            var index = context.dataIndex;
-                            var value = context.dataset.data[index];
+                            var value;
                             var valueOrange = context.dataset.label;
 
                             if (valueOrange === 'Temperatur') {
@@ -547,13 +541,13 @@
                 responsive: true,
                 title: {
                     display: true,
-                    text: "Torsdag  -  " + weekList[3].split('-').reverse().join("-") +" "+ makeChartTitle(3),
+                    text: "Torsdag  -  " + weekList[3].split('-').reverse().join("-") + " " + makeChartTitle(3),
                     fontSize: 20
                 },
             }
         });
-        var ctx = document.getElementById('chart4').getContext('2d');
-        var chart4 = new Chart(ctx, {
+
+        new Chart(document.getElementById('chart4').getContext('2d'), {
             type: 'line',
 
             // The data for our dataset
@@ -582,8 +576,7 @@
                         anchor: 'center',
                         align: 'top',
                         color: function (context) {
-                            var index = context.dataIndex;
-                            var value = context.dataset.data[index];
+                            var value;
                             var valueOrange = context.dataset.label;
 
                             if (valueOrange === 'Temperatur') {
@@ -631,7 +624,7 @@
                 responsive: true,
                 title: {
                     display: true,
-                    text: "Fredag  -  " + weekList[4].split('-').reverse().join("-") +" "+ makeChartTitle(4),
+                    text: "Fredag  -  " + weekList[4].split('-').reverse().join("-") + " " + makeChartTitle(4),
                     fontSize: 20
                 },
             }
