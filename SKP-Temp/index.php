@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="assets/css/week-picker.css">
+    <link rel="icon" href="assets/img/sde-logo.png" type="image/gif" sizes="16x16">
+    <link rel="stylesheet" href="assets/css/week-picker.css">
     <link rel="stylesheet" href="assets/css/style.css"/>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" SameSite=None; Secure rel="stylesheet"
-          type="text/css">
+    <link rel="stylesheet" href="http://www.jqueryscript.net/css/jquerysctipttop.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
@@ -14,7 +14,6 @@
     <script src="assets/js/week-picker.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-    <link rel="icon" href="assets/img/sde-logo.png" type="image/gif" sizes="16x16">
     <meta charset="UTF-8">
     <title>SKP - Klima</title>
 </head>
@@ -39,15 +38,11 @@
     <h1 id="title">Zone 5</h1>
 </div>
 
+<div id="chartContainer"></div>
+
 <script>
-    var zoneNumber = 5; // Bruges til at hente den rigtige zone fra databasen. Bliver opdateret dynamisk af funktionen "pickZone()"
-    var weekList = []; // Er default et tomt array. getWeek() fylder listen med datoer (mandag-fredag, yyyy-mm-dd)
-    var timeList = [[], [], [], [], []];
-
-    var firstDateOfWeek = getMonday(new Date()); // Er default den nuværende mandag og bliver opdateret hver gang der bliver valgt en ny uge i week-picker.js
-    firstDateOfWeek = firstDateOfWeek.getFullYear() + '-' + ('0' + (firstDateOfWeek.getMonth() + 1)).slice(-2) + '-' + ('0' + firstDateOfWeek.getDate()).slice(-2);
-    var dateSplit = firstDateOfWeek.split('-');
-
+    var zoneNumber = 5, weekList = [], timeList = [[], [], [], [], []]
+    var firstDateOfWeek = getMonday(new Date()).getFullYear() + '-' + ('0' + (getMonday(new Date()).getMonth() + 1)).slice(-2) + '-' + ('0' + getMonday(new Date()).getDate()).slice(-2);
 
     $(document).ready(function () {
         $.ajax({
@@ -87,7 +82,6 @@
 
     function dateSorter(dataArray) {
         getWeek()
-
         timeList = [[], [], [], [], []];
         for (var i = 0; i < weekList.length; i++) {
             for (var x = 0; x < dataArray.length; x++) {
@@ -139,7 +133,7 @@
         }
         //console.log(weekList)
         //console.log(timeList)
-        drawChart()
+        drawCharts()
 
     }
 
@@ -161,8 +155,7 @@
     function getWeek() {
         weekList = []
         var firstDateOfWeekPreSplit = firstDateOfWeek
-        dateSplit = firstDateOfWeek.split('-');
-        firstDateOfWeek = new Date(dateSplit[0] + ',' + dateSplit[1] + ',' + dateSplit[2]);
+        firstDateOfWeek = new Date(firstDateOfWeek.split('-')[0] + ',' + firstDateOfWeek.split('-')[1] + ',' + firstDateOfWeek.split('-')[2]);
 
         for (i = 0; i < 5; i++) {
             var nextDate = new Date(firstDateOfWeek);
@@ -214,10 +207,9 @@
         startCall();
     }
 
-    function drawChart() {
-        resetCanvas()
-
-        new Chart(document.getElementById('chart0').getContext('2d'), {
+    // createChart() er en function der generere chart ud fra et template
+    function createChart(indeks, dag) {
+        new Chart(document.getElementById("chart" + indeks).getContext('2d'), {
             type: 'line',
 
             // The data for our dataset
@@ -227,13 +219,13 @@
                     label: 'Temperatur',
                     backgroundColor: 'rgba(239,154,18,0.7)',
                     borderColor: 'rgb(239,154,18)',
-                    data: [timeList[0][0].temperature, timeList[0][1].temperature, timeList[0][2].temperature],
+                    data: [timeList[indeks][0].temperature, timeList[indeks][1].temperature, timeList[indeks][2].temperature],
                     fill: true,
                 }, {
                     label: 'Luftfugtighed',
                     backgroundColor: 'rgba(31,84,208,0.1)',
                     borderColor: 'rgb(31,84,208)',
-                    data: [timeList[0][0].humidity, timeList[0][1].humidity, timeList[0][2].humidity],
+                    data: [timeList[indeks][0].humidity, timeList[indeks][1].humidity, timeList[indeks][2].humidity],
                     fill: true,
                 }]
             },
@@ -284,7 +276,7 @@
                     yAxes: [{
                         ticks: {
                             suggestedMin: 0,
-                            suggestedMax: 80,
+                            suggestedMax: 90,
                             fontSize: 15
                         }
                     }]
@@ -292,337 +284,22 @@
                 responsive: true,
                 title: {
                     display: true,
-                    text: "Mandag  -  " + weekList[0].split('-').reverse().join("-") + " " + makeChartTitle(0),
-                    fontSize: 20
-                },
-            }
-        });
-
-        new Chart(document.getElementById('chart1').getContext('2d'), {
-            type: 'line',
-
-            // The data for our dataset
-            data: {
-                labels: ['08:00', '12:00', '15:00'],
-                datasets: [{
-                    label: 'Temperatur',
-                    backgroundColor: 'rgba(239,154,18,0.7)',
-                    borderColor: 'rgb(239,154,18)',
-                    data: [timeList[1][0].temperature, timeList[1][1].temperature, timeList[1][2].temperature],
-                    fill: true,
-                }, {
-                    label: 'Luftfugtighed',
-                    backgroundColor: 'rgba(31,84,208,0.1)',
-                    borderColor: 'rgb(31,84,208)',
-                    data: [timeList[1][0].humidity, timeList[1][1].humidity, timeList[1][2].humidity],
-                    fill: true,
-                }]
-            },
-
-            // Configuration options go here
-            options: {
-                plugins: {
-                    datalabels: {
-                        display: true,
-                        anchor: 'center',
-                        align: 'top',
-                        offset: 10,
-                        color: function (context) {
-                            var valueOrange = context.dataset.label;
-                            if (valueOrange === 'Temperatur') {
-                                return 'rgb(239,154,18)';
-                            } else {
-                                return 'rgb(31,84,208)';
-                            }
-                        },
-                        font: {
-                            size: 20,
-                            weight: 'bold'
-                        },
-                    }
-                },
-                legend: {
-                    onHover: function (e) {
-                        e.target.style.cursor = 'pointer';
-                    },
-                    labels: {
-                        fontSize: 15
-                    }
-                },
-                hover: {
-                    onHover: function (e) {
-                        var point = this.getElementAtEvent(e);
-                        if (point.length) e.target.style.cursor = 'pointer';
-                        else e.target.style.cursor = 'default';
-                    }
-                },
-                scales: {
-                    xAxes: [{
-                        ticks: {
-                            fontSize: 15
-                        }
-                    }],
-                    yAxes: [{
-                        ticks: {
-                            suggestedMin: 0,
-                            suggestedMax: 80,
-                            fontSize: 15
-                        }
-                    }]
-                },
-                responsive: true,
-                title: {
-                    display: true,
-                    text: "Tirsdag  -  " + weekList[1].split('-').reverse().join("-") + " " + makeChartTitle(1),
-                    fontSize: 20
-                },
-            }
-        });
-
-        new Chart(document.getElementById('chart2').getContext('2d'), {
-            type: 'line',
-
-            // The data for our dataset
-            data: {
-                labels: ['08:00', '12:00', '15:00'],
-                datasets: [{
-                    label: 'Temperatur',
-                    backgroundColor: 'rgba(239,154,18,0.7)',
-                    borderColor: 'rgb(239,154,18)',
-                    data: [timeList[2][0].temperature, timeList[2][1].temperature, timeList[2][2].temperature],
-                    fill: true,
-                }, {
-                    label: 'Luftfugtighed',
-                    backgroundColor: 'rgba(31,84,208,0.1)',
-                    borderColor: 'rgb(31,84,208)',
-                    data: [timeList[2][0].humidity, timeList[2][1].humidity, timeList[2][2].humidity],
-                    fill: true,
-                }]
-            },
-
-            // Configuration options go here
-            options: {
-                plugins: {
-                    datalabels: {
-                        display: true,
-                        anchor: 'center',
-                        align: 'top',
-                        color: function (context) {
-                            var valueOrange = context.dataset.label;
-
-                            if (valueOrange === 'Temperatur') {
-                                return 'rgb(239,154,18)';
-                            } else {
-                                return 'rgb(31,84,208)';
-                            }
-                        },
-                        font: {
-                            size: 20,
-                            weight: 'bold'
-                        },
-                    }
-                },
-                legend: {
-                    onHover: function (e) {
-                        e.target.style.cursor = 'pointer';
-                    },
-                    labels: {
-                        fontSize: 15
-                    }
-                },
-                hover: {
-                    onHover: function (e) {
-                        var point = this.getElementAtEvent(e);
-                        if (point.length) e.target.style.cursor = 'pointer';
-                        else e.target.style.cursor = 'default';
-                    }
-                },
-                scales: {
-                    xAxes: [{
-                        ticks: {
-                            fontSize: 15
-                        }
-                    }],
-                    yAxes: [{
-                        ticks: {
-                            suggestedMin: 0,
-                            suggestedMax: 80,
-                            fontSize: 15
-                        }
-                    }]
-                },
-                responsive: true,
-                title: {
-                    display: true,
-                    text: "Onsdag  -  " + weekList[2].split('-').reverse().join("-") + " " + makeChartTitle(2),
-                    fontSize: 20
-                },
-            }
-        });
-
-        new Chart(document.getElementById('chart3').getContext('2d'), {
-            type: 'line',
-
-            // The data for our dataset
-            data: {
-                labels: ['08:00', '12:00', '15:00'],
-                datasets: [{
-                    label: 'Temperatur',
-                    backgroundColor: 'rgba(239,154,18,0.7)',
-                    borderColor: 'rgb(239,154,18)',
-                    data: [timeList[3][0].temperature, timeList[3][1].temperature, timeList[3][2].temperature],
-                    fill: true,
-                }, {
-                    label: 'Luftfugtighed',
-                    backgroundColor: 'rgba(31,84,208,0.1)',
-                    borderColor: 'rgb(31,84,208)',
-                    data: [timeList[3][0].humidity, timeList[3][1].humidity, timeList[3][2].humidity],
-                    fill: true,
-                }]
-            },
-
-            // Configuration options go here
-            options: {
-                plugins: {
-                    datalabels: {
-                        display: true,
-                        anchor: 'center',
-                        align: 'top',
-                        color: function (context) {
-                            var valueOrange = context.dataset.label;
-                            if (valueOrange === 'Temperatur') {
-                                return 'rgb(239,154,18)';
-                            } else {
-                                return 'rgb(31,84,208)';
-                            }
-                        },
-                        font: {
-                            size: 20,
-                            weight: 'bold'
-                        },
-                    }
-                },
-                legend: {
-                    onHover: function (e) {
-                        e.target.style.cursor = 'pointer';
-                    },
-                    labels: {
-                        fontSize: 15
-                    }
-                },
-                hover: {
-                    onHover: function (e) {
-                        var point = this.getElementAtEvent(e);
-                        if (point.length) e.target.style.cursor = 'pointer';
-                        else e.target.style.cursor = 'default';
-                    }
-                },
-                scales: {
-                    xAxes: [{
-                        ticks: {
-                            fontSize: 15
-                        }
-                    }],
-                    yAxes: [{
-                        ticks: {
-                            suggestedMin: 0,
-                            suggestedMax: 80,
-                            fontSize: 15
-                        }
-                    }]
-                },
-                responsive: true,
-                title: {
-                    display: true,
-                    text: "Torsdag  -  " + weekList[3].split('-').reverse().join("-") + " " + makeChartTitle(3),
-                    fontSize: 20
-                },
-            }
-        });
-
-        new Chart(document.getElementById('chart4').getContext('2d'), {
-            type: 'line',
-
-            // The data for our dataset
-            data: {
-                labels: ['08:00', '12:00', '15:00'],
-                datasets: [{
-                    label: 'Temperatur',
-                    backgroundColor: 'rgba(239,154,18,0.7)',
-                    borderColor: 'rgb(239,154,18)',
-                    data: [timeList[4][0].temperature, timeList[4][1].temperature, timeList[4][2].temperature],
-                    fill: true,
-                }, {
-                    label: 'Luftfugtighed',
-                    backgroundColor: 'rgba(31,84,208,0.1)',
-                    borderColor: 'rgb(31,84,208)',
-                    data: [timeList[4][0].humidity, timeList[4][1].humidity, timeList[4][2].humidity],
-                    fill: true,
-                }]
-            },
-
-            // Configuration options go here
-            options: {
-                plugins: {
-                    datalabels: {
-                        display: true,
-                        anchor: 'center',
-                        align: 'top',
-                        color: function (context) {
-                            var valueOrange = context.dataset.label;
-                            if (valueOrange === 'Temperatur') {
-                                return 'rgb(239,154,18)';
-                            } else {
-                                return 'rgb(31,84,208)';
-                            }
-                        },
-                        borderColor: 'green',
-                        font: {
-                            size: 20,
-                            weight: 'bold',
-                        },
-                    }
-                },
-                legend: {
-                    onHover: function (e) {
-                        e.target.style.cursor = 'pointer';
-                    },
-                    labels: {
-                        fontSize: 15
-                    }
-                },
-                hover: {
-                    onHover: function (e) {
-                        var point = this.getElementAtEvent(e);
-                        if (point.length) e.target.style.cursor = 'pointer';
-                        else e.target.style.cursor = 'default';
-                    }
-                },
-                scales: {
-                    xAxes: [{
-                        ticks: {
-                            fontSize: 15
-                        }
-                    }],
-                    yAxes: [{
-                        ticks: {
-                            suggestedMin: 0,
-                            suggestedMax: 80,
-                            fontSize: 15
-                        }
-                    }]
-                },
-                responsive: true,
-                title: {
-                    display: true,
-                    text: "Fredag  -  " + weekList[4].split('-').reverse().join("-") + " " + makeChartTitle(4),
+                    text: dag + weekList[indeks].split('-').reverse().join("-") + " " + makeChartTitle(indeks),
                     fontSize: 20
                 },
             }
         });
     }
-</script>
 
-<div id="chartContainer"></div>
+    // drawCharts() er en function som kalder resetCanvas() som reseter canvasne og creatChart() some generere chartsne
+    function drawCharts() {
+        resetCanvas()
+        createChart(0, "Mandag  -  ")
+        createChart(1, "Tirsdag  -  ")
+        createChart(2, "Onsdag  -  ")
+        createChart(3, "Torsdag  -  ")
+        createChart(4, "Fredag  -  ")
+    }
+</script>
 </body>
 </html>
