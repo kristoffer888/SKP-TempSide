@@ -15,7 +15,7 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
     <meta charset="UTF-8">
-    <title>SKP Klima</title>
+    <title>SKP - Klima</title>
 </head>
 <body>
 <div class="container-fluid">
@@ -246,13 +246,11 @@
                         align: 'top',
                         offset: 10,
                         color: function (context) {
-                            var value;
                             var valueOrange = context.dataset.label;
-
                             if (valueOrange === 'Temperatur') {
-                                return value = 'rgb(239,154,18)';
+                                return 'rgb(239,154,18)';
                             } else {
-                                return value = 'rgb(31,84,208)';
+                                return 'rgb(31,84,208)';
                             }
                         },
                         font: {
@@ -329,14 +327,11 @@
                         align: 'top',
                         offset: 10,
                         color: function (context) {
-                            var value;
                             var valueOrange = context.dataset.label;
-
-
                             if (valueOrange === 'Temperatur') {
-                                return value = 'rgb(239,154,18)';
+                                return 'rgb(239,154,18)';
                             } else {
-                                return value = 'rgb(31,84,208)';
+                                return 'rgb(31,84,208)';
                             }
                         },
                         font: {
@@ -412,13 +407,12 @@
                         anchor: 'center',
                         align: 'top',
                         color: function (context) {
-                            var value;
                             var valueOrange = context.dataset.label;
 
                             if (valueOrange === 'Temperatur') {
-                                return value = 'rgb(239,154,18)';
+                                return 'rgb(239,154,18)';
                             } else {
-                                return value = 'rgb(31,84,208)';
+                                return 'rgb(31,84,208)';
                             }
                         },
                         font: {
@@ -494,13 +488,11 @@
                         anchor: 'center',
                         align: 'top',
                         color: function (context) {
-                            var value;
                             var valueOrange = context.dataset.label;
-
                             if (valueOrange === 'Temperatur') {
-                                return value = 'rgb(239,154,18)';
+                                return 'rgb(239,154,18)';
                             } else {
-                                return value = 'rgb(31,84,208)';
+                                return 'rgb(31,84,208)';
                             }
                         },
                         font: {
@@ -576,13 +568,11 @@
                         anchor: 'center',
                         align: 'top',
                         color: function (context) {
-                            var value;
                             var valueOrange = context.dataset.label;
-
                             if (valueOrange === 'Temperatur') {
-                                return value = 'rgb(239,154,18)';
+                                return 'rgb(239,154,18)';
                             } else {
-                                return value = 'rgb(31,84,208)';
+                                return 'rgb(31,84,208)';
                             }
                         },
                         borderColor: 'green',
