@@ -50,6 +50,7 @@
             dataType: "JSON",
 
             success: function (data) {
+                console.log(data)
                 dateSorter(data)
             }, error: function (error) {
                 console.log(error)
@@ -232,6 +233,11 @@
 
             // Configuration options go here
             options: {
+                // elements: {
+                //     line: {
+                //         tension: 0
+                //     }
+                // },
                 plugins: {
                     datalabels: {
                         display: true,
