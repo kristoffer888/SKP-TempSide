@@ -25,6 +25,7 @@
             <a onclick='pickZone(this)'>Zone 3</a>
             <a onclick='pickZone(this)'>Zone 5</a>
             <a onclick='pickZone(this)'>Zone 6</a>
+            <a onclick='pickZone(this)'>MU1a Zone 7</a>
             <a onclick='pickZone(this)'>Zone 8</a>
             <a onclick='pickZone(this)'>Zone 9</a>
             <a onclick='pickZone(this)'>Zone 100</a>
@@ -50,7 +51,6 @@
             dataType: "JSON",
 
             success: function (data) {
-                console.log(data)
                 dateSorter(data)
             }, error: function (error) {
                 console.log(error)
@@ -203,8 +203,12 @@
     // Henter teksten fra knappen som man trykkede på og ændrer "zoneNumber" og titlen
     function pickZone(obj) {
         zoneNumber = $(obj).text().split(' ');
-        zoneNumber = zoneNumber[1]
-        document.getElementById("title").innerHTML = "Zone " + zoneNumber;
+        zoneNumber = zoneNumber[zoneNumber.length-1]
+        if (zoneNumber == 7) {
+            document.getElementById("title").innerHTML = "MU1a Zone " + zoneNumber;
+        }else {
+            document.getElementById("title").innerHTML = "Zone " + zoneNumber;
+        }
         startCall();
     }
 
