@@ -20,12 +20,11 @@
 <body>
 <div class="container-fluid">
     <div class="dropdown first">
-        <button onclick="buttonShow()" class="dropbtn">Zoner</button>
-        <div class="dropdown-content myDropdown">
+        <button onclick="pickBuilding(this)" class="dropbtn">MU7</button>
+        <div id="btn1" class="dropdown-content">
             <a onclick='pickZone(this)'>Zone 3</a>
             <a onclick='pickZone(this)'>Zone 5</a>
             <a onclick='pickZone(this)'>Zone 6</a>
-            <a onclick='pickZone(this)'>MU1a Zone 7</a>
             <a onclick='pickZone(this)'>Zone 8</a>
             <a onclick='pickZone(this)'>Zone 9</a>
             <a onclick='pickZone(this)'>Zone 100</a>
@@ -33,16 +32,9 @@
         </div>
     </div>
     <div class="dropdown first">
-        <button onclick="buttonShow()" class="dropbtn margin">Zoner</button>
-        <div class="dropdown-content myDropdown">
-            <a onclick='pickZone(this)'>Zone 3</a>
-            <a onclick='pickZone(this)'>Zone 5</a>
-            <a onclick='pickZone(this)'>Zone 6</a>
-            <a onclick='pickZone(this)'>MU1a Zone 7</a>
-            <a onclick='pickZone(this)'>Zone 8</a>
-            <a onclick='pickZone(this)'>Zone 9</a>
-            <a onclick='pickZone(this)'>Zone 100</a>
-            <a onclick='pickZone(this)'>Zone 102</a>
+        <button onclick="pickBuilding(this)" class="dropbtn margin">MU1a</button>
+        <div id="btn2" class="dropdown-content margin">
+            <a onclick='pickZone(this)'>Zone 7</a>
         </div>
     </div>
     <div class="week-picker second" data-mode="single"></div>
@@ -51,7 +43,7 @@
 
 
 <div style="text-align: center; padding-bottom:25px !important;">
-    <h1 id="title">Zone 5</h1>
+    <h1 id="title">MU7 Zone 5</h1>
 </div>
 
 <div id="chartContainer"></div>
@@ -192,8 +184,14 @@
     }
 
     //Åbner dropdown menuen
-    function buttonShow() {
-        document.getElementsByClassName("myDropdown").classList.toggle("show");
+    function pickBuilding(obj) {
+        building = $(obj).text()
+        console.log(building)
+        if (building == "MU7") {
+            document.getElementById("btn1").classList.toggle("show");
+        }else {
+            document.getElementById("btn2").classList.toggle("show");
+        }
     }
 
     // Lukker dropdown menuen hvis man klikker uden for den
@@ -217,7 +215,7 @@
         if (zoneNumber == 7) {
             document.getElementById("title").innerHTML = "MU1a Zone " + zoneNumber;
         }else {
-            document.getElementById("title").innerHTML = "Zone " + zoneNumber;
+            document.getElementById("title").innerHTML = "MU7 Zone " + zoneNumber;
         }
         startCall();
     }
