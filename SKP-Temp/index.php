@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
     <link rel="icon" href="assets/img/sde-logo.png" type="image/gif" sizes="16x16">
     <link rel="stylesheet" href="assets/css/week-picker.css">
-    <link rel="stylesheet" href="assets/css/style.css"/>
     <link rel="stylesheet" href="http://www.jqueryscript.net/css/jquerysctipttop.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css"/>
 
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
     <script src="assets/js/week-picker.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-    <meta charset="UTF-8">
     <title>SKP - Klima</title>
 </head>
 <body>
@@ -57,15 +57,18 @@
 <div id="chartContainer"></div>
 
 <script>
-    var zoneNumber = 5, weekList = [], timeList = [[], [], [], [], []]
-    var firstDateOfWeek = getMonday(new Date()).getFullYear() + '-' + ('0' + (getMonday(new Date()).getMonth() + 1)).slice(-2) + '-' + ('0' + getMonday(new Date()).getDate()).slice(-2);
+    var zoneNumber = 5, weekList = ['2021-04-26', '2021-04-27', '2021-04-28', '2021-04-29', '2021-04-30'], timeList = [[], [], [], [], []]
+    var firstDateOfWeek = getMonday(new Date().toISOString().split('T')[0])
 
     $(document).ready(function () {
         $.ajax({
             url: "assets/php/data.php",
+            data: { week: weekList },
+            type: "GET",
             dataType: "JSON",
 
             success: function (data) {
+                console.log(data)
                 dateSorter(data)
             }, error: function (error) {
                 console.log(error)
@@ -77,9 +80,12 @@
         $(document).ready(function () {
             $.ajax({
                 url: "assets/php/data.php",
+                data: { week: weekList },
+                type: "GET",
                 dataType: "JSON",
 
                 success: function (data) {
+                    console.log(data)
                     dateSorter(data)
                 }, error: function (error) {
                     console.log(error)
@@ -97,7 +103,7 @@
     }
 
     function dateSorter(dataArray) {
-        getWeek()
+        weekList = getWeek(firstDateOfWeek)
         timeList = [[], [], [], [], []];
         for (var i = 0; i < weekList.length; i++) {
             for (var x = 0; x < dataArray.length; x++) {
@@ -168,23 +174,12 @@
     }
 
     // Den får datoen for mandagen i den valgte uge og returner en liste med de næste fire dage (mandag-fredag , yyyy-mm-dd)
-    function getWeek() {
-        weekList = []
-        var firstDateOfWeekPreSplit = firstDateOfWeek
-        firstDateOfWeek = new Date(firstDateOfWeek.split('-')[0] + ',' + firstDateOfWeek.split('-')[1] + ',' + firstDateOfWeek.split('-')[2]);
-
-        for (i = 0; i < 5; i++) {
-            var nextDate = new Date(firstDateOfWeek);
-            nextDate.setDate(firstDateOfWeek.getDate() + i);
-
-            var year1 = nextDate.getFullYear();
-            var month1 = ('0' + (nextDate.getMonth() + 1)).slice(-2);
-            var day1 = ('0' + nextDate.getDate()).slice(-2);
-
-            weekList.push(year1 + '-' + month1 + '-' + day1);
+    function getWeek(monday) {
+        weekList=[]
+        for (let i =0; i < 5; i++ ){
+            weekList[i] = moment(moment(monday, "YYYY-MM-DD").add(i, "days")).format("YYYY-MM-DD")
         }
-        firstDateOfWeek = firstDateOfWeekPreSplit
-
+        return weekList
     }
 
     // Sletter canvas, padding-div og appender et nyt canvas og padding-div til "chartContainer"
@@ -227,7 +222,7 @@
         startCall();
     }
 
-    // createChart() er en function der generere chart ud fra et template
+    // createChart() er en function der genererer chart ud fra et template
     function createChart(indeks, dag) {
         new Chart(document.getElementById("chart" + indeks).getContext('2d'), {
             type: 'line',
@@ -252,11 +247,6 @@
 
             // Configuration options go here
             options: {
-                // elements: {
-                //     line: {
-                //         tension: 0
-                //     }
-                // },
                 plugins: {
                     datalabels: {
                         display: true,

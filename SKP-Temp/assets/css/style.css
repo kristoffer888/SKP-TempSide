@@ -1,28 +1,14 @@
-body {
-    background: white;
-    margin: 0;
-}
-
-.first {
+.first, .second {
     float: left;
-}
-
-.second {
-    float: left;
-}
-
-h1 {
-    margin: 0;
 }
 
 .container-fluid {
-    padding-left: 0 !important;
-    margin-left: 0 !important;
-    padding-bottom: 100px !important;
+    padding-left: 0;
+    margin-left: 0;
+    padding-bottom: 100px;
 }
 
 .dropbtn {
-    background-color: rgb(240, 174, 76);
     width: 100px;
     color: white;
     padding: 16px;
@@ -34,7 +20,7 @@ h1 {
     margin-left: 5px;
 }
 
-.dropbtn:hover, .dropbtn:focus {
+.dropbtn:hover, .dropbtn:focus, .dropbtn {
     background-color: rgb(240, 174, 76);
 }
 
