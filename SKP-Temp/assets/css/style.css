@@ -30,6 +30,9 @@ h1 {
     border: none;
     cursor: pointer;
 }
+.margin {
+    margin-left: 5px;
+}
 
 .dropbtn:hover, .dropbtn:focus {
     background-color: rgb(240, 174, 76);

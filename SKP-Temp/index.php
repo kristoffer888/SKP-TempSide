@@ -21,7 +21,20 @@
 <div class="container-fluid">
     <div class="dropdown first">
         <button onclick="buttonShow()" class="dropbtn">Zoner</button>
-        <div id="myDropdown" class="dropdown-content">
+        <div class="dropdown-content myDropdown">
+            <a onclick='pickZone(this)'>Zone 3</a>
+            <a onclick='pickZone(this)'>Zone 5</a>
+            <a onclick='pickZone(this)'>Zone 6</a>
+            <a onclick='pickZone(this)'>MU1a Zone 7</a>
+            <a onclick='pickZone(this)'>Zone 8</a>
+            <a onclick='pickZone(this)'>Zone 9</a>
+            <a onclick='pickZone(this)'>Zone 100</a>
+            <a onclick='pickZone(this)'>Zone 102</a>
+        </div>
+    </div>
+    <div class="dropdown first">
+        <button onclick="buttonShow()" class="dropbtn margin">Zoner</button>
+        <div class="dropdown-content myDropdown">
             <a onclick='pickZone(this)'>Zone 3</a>
             <a onclick='pickZone(this)'>Zone 5</a>
             <a onclick='pickZone(this)'>Zone 6</a>
@@ -34,6 +47,8 @@
     </div>
     <div class="week-picker second" data-mode="single"></div>
 </div>
+
+
 
 <div style="text-align: center; padding-bottom:25px !important;">
     <h1 id="title">Zone 5</h1>
@@ -181,9 +196,9 @@
         }
     }
 
-    //åbner dropdown menuen
+    //Åbner dropdown menuen
     function buttonShow() {
-        document.getElementById("myDropdown").classList.toggle("show");
+        document.getElementsByClassName("myDropdown").classList.toggle("show");
     }
 
     // Lukker dropdown menuen hvis man klikker uden for den
