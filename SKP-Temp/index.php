@@ -185,12 +185,16 @@
 
     //Åbner dropdown menuen
     function pickBuilding(obj) {
-        building = $(obj).text()
+        const building = $(obj).text();
         console.log(building)
         if (building == "MU7") {
             document.getElementById("btn1").classList.toggle("show");
+            document.getElementById("btn2").classList.remove("show");
+
         }else {
             document.getElementById("btn2").classList.toggle("show");
+            document.getElementById("btn1").classList.remove("show");
+
         }
     }
 
