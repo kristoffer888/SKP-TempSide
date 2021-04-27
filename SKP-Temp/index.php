@@ -167,8 +167,8 @@
 
     // Den får datoen for mandagen i den valgte uge og returner en liste med de næste fire dage (mandag-fredag , yyyy-mm-dd)
     function getWeek(monday) {
-        weekList=[]
-        for (let i =0; i < 5; i++ ){
+        weekList = []
+        for (let i = 0; i < 5; i++) {
             weekList[i] = moment(moment(monday, "YYYY-MM-DD").add(i, "days")).format("YYYY-MM-DD")
         }
         return weekList
@@ -214,7 +214,7 @@
     // Henter teksten fra knappen som man trykkede på og ændrer "zoneNumber" og titlen
     function pickZone(obj) {
         zoneNumber = $(obj).text().split(' ');
-        zoneNumber = zoneNumber[zoneNumber.length-1]
+        zoneNumber = zoneNumber[zoneNumber.length - 1]
         if (zoneNumber == 7) {
             document.getElementById("title").innerHTML = "MU1a Zone " + zoneNumber;
         }else {
