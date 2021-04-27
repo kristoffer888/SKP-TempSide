@@ -235,22 +235,38 @@
                 plugins: {
                     datalabels: {
                         display: true,
-                        anchor: 'top',
                         offset: 6,
                         font: {
                             size: 20,
                             weight: 'bold',
                         },
-                        align: function (context) {
+                        // Aligner datalabels så de ikke overlapper eller går ud over grafens flade.
+                        align: function(context) {
                             var index = context.dataIndex;
                             var datasets = context.chart.data.datasets;
                             var v0 = datasets[0].data[index];
                             var v1 = datasets[1].data[index];
                             var invert = v0 - v1 > 0;
-                            return context.datasetIndex === 0 ?
-                                invert ? 'end' : 'start' :
-                                invert ? 'start' : 'end';
+
+                            if (index == 0){
+                                return context.datasetIndex === 0 ?
+                                    invert ? -45 : 45 :
+                                    invert ? 45 : -45 ;
+
+                            }
+                            else if (index == 1){
+                                return context.datasetIndex === 0 ?
+                                    invert ? 'end' : 'start' :
+                                    invert ? 'start' : 'end';
+                            }
+                            else if (index == 2){
+                                return context.datasetIndex === 0 ?
+                                    invert ? 240 : -240 :
+                                    invert ? -240 : 240 ;
+                            }
+
                         },
+                        // Giver labels rigtige farver.
                         color: function (context) {
                             var labelColor = context.dataset.label;
                             if (labelColor === 'Temperatur') {
@@ -259,16 +275,18 @@
                                 return 'rgb(31,84,208)';
                             }
                         },
-                        formatter: function (value, context) {
+                        // Tilføjer % og °C til labels.
+                        formatter: function(value, context) {
                             var index = context.dataIndex;
                             var datasets = context.chart.data.datasets;
                             var temperatur = datasets[0].data[index];
                             var luftfugtighed = datasets[1].data[index];
 
                             var labelName = context.dataset.label;
-                            if (temperatur == 0 && luftfugtighed == 0) {
+                            if (temperatur == 0 && luftfugtighed == 0){
                                 return null;
-                            } else if (labelName === 'Temperatur') {
+                            }
+                            else if (labelName === 'Temperatur') {
                                 return temperatur + ' °C';
                             } else {
                                 return luftfugtighed + ' %';
@@ -297,13 +315,13 @@
                 scales: {
                     xAxes: [{
                         ticks: {
-                            fontSize: 15
-                        }
+                            fontSize: 20,
+                        },
                     }],
                     yAxes: [{
                         ticks: {
                             suggestedMin: 0,
-                            suggestedMax: 10,
+                            suggestedMax: 50,
                             fontSize: 15
                         }
                     }]
