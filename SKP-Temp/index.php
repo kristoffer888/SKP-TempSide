@@ -20,41 +20,47 @@
 <body>
 <div class="container-fluid">
     <div class="dropdown first">
-        <button onclick="buttonShow()" class="dropbtn">Zoner</button>
-        <div id="myDropdown" class="dropdown-content">
+        <button onclick="pickBuilding(this)" class="dropbtn">MU7</button>
+        <div id="btn1" class="dropdown-content">
             <a onclick='pickZone(this)'>Zone 3</a>
             <a onclick='pickZone(this)'>Zone 5</a>
             <a onclick='pickZone(this)'>Zone 6</a>
-            <a onclick='pickZone(this)'>MU1a Zone 7</a>
             <a onclick='pickZone(this)'>Zone 8</a>
             <a onclick='pickZone(this)'>Zone 9</a>
             <a onclick='pickZone(this)'>Zone 100</a>
             <a onclick='pickZone(this)'>Zone 102</a>
         </div>
     </div>
+    <div class="dropdown first">
+        <button onclick="pickBuilding(this)" class="dropbtn margin">MU1a</button>
+        <div id="btn2" class="dropdown-content margin">
+            <a onclick='pickZone(this)'>Zone 7</a>
+        </div>
+    </div>
     <div class="week-picker second" data-mode="single"></div>
 </div>
 
+
+
 <div style="text-align: center; padding-bottom:25px !important;">
-    <h1 id="title">Zone 5</h1>
+    <h1 id="title">MU7 Zone 5</h1>
 </div>
 
 <div id="chartContainer"></div>
 
 <script>
-    var zoneNumber = 5, timeList = [[], [], [], [], []]
+    var zoneNumber = 5, weekList = ['2021-04-26', '2021-04-27', '2021-04-28', '2021-04-29', '2021-04-30'], timeList = [[], [], [], [], []]
     var firstDateOfWeek = getMonday(new Date().toISOString().split('T')[0])
-    var weekList = getWeek(firstDateOfWeek)
+
     $(document).ready(function () {
         $.ajax({
             url: "assets/php/data.php",
-            data: {week: weekList},
+            data: { week: weekList },
             type: "GET",
             dataType: "JSON",
 
             success: function (data) {
                 console.log(data)
-                dateSorter(data)
                 dateSorter(data)
             }, error: function (error) {
                 console.log(error)
@@ -63,20 +69,20 @@
     });
 
     function startCall() {
-        console.clear();
-        $.ajax({
-            url: "assets/php/data.php",
-            data: {week: weekList},
-            type: "GET",
-            dataType: "JSON",
+        $(document).ready(function () {
+            $.ajax({
+                url: "assets/php/data.php",
+                data: { week: weekList },
+                type: "GET",
+                dataType: "JSON",
 
-            success: function (data) {
-                console.log(data)
-                dateSorter(data)
-                dateSorter(data)
-            }, error: function (error) {
-                console.log(error)
-            }
+                success: function (data) {
+                    console.log(data)
+                    dateSorter(data)
+                }, error: function (error) {
+                    console.log(error)
+                }
+            });
         });
     }
 
@@ -139,6 +145,8 @@
             } else {
             }
         }
+        //console.log(weekList)
+        //console.log(timeList)
         drawCharts()
 
     }
@@ -175,9 +183,19 @@
         }
     }
 
-    //åbner dropdown menuen
-    function buttonShow() {
-        document.getElementById("myDropdown").classList.toggle("show");
+    //Åbner dropdown menuen
+    function pickBuilding(obj) {
+        const building = $(obj).text();
+        console.log(building)
+        if (building == "MU7") {
+            document.getElementById("btn1").classList.toggle("show");
+            document.getElementById("btn2").classList.remove("show");
+
+        }else {
+            document.getElementById("btn2").classList.toggle("show");
+            document.getElementById("btn1").classList.remove("show");
+
+        }
     }
 
     // Lukker dropdown menuen hvis man klikker uden for den
@@ -200,8 +218,8 @@
         zoneNumber = zoneNumber[zoneNumber.length - 1]
         if (zoneNumber == 7) {
             document.getElementById("title").innerHTML = "MU1a Zone " + zoneNumber;
-        } else {
-            document.getElementById("title").innerHTML = "Zone " + zoneNumber;
+        }else {
+            document.getElementById("title").innerHTML = "MU7 Zone " + zoneNumber;
         }
         startCall();
     }
