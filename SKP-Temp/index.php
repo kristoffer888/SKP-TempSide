@@ -120,7 +120,7 @@
                 } else if (a === "12" && b === "15") {
                     timeList[q].unshift(feed1);
                 }
-                timeList[q][0].updated = "  -  Manglende data fra et eller flere tidspunkter"
+                timeList[q][0].updated = " -  Manglende data fra et eller flere tidspunkter"
             } else if (timeList[q].length === 1) {
                 let a = (timeList[q][0].updated.split(" "))[1].split(":")[0]
                 if (a === "08") {
@@ -133,7 +133,7 @@
                     timeList[q].unshift(feed1)
                     timeList[q].unshift(feed1)
                 }
-                timeList[q][0].updated = "  -  Manglende data fra et eller flere tidspunkter"
+                timeList[q][0].updated = " -  Manglende data fra et eller flere tidspunkter"
             }
         }
         // Sletter canvas, padding-div og appender et nyt canvas og padding-div til "chartContainer"
