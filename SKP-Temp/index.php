@@ -188,8 +188,8 @@
 
     //Åbner dropdown menuen
     function pickBuilding(obj) {
-        const building = $(obj).text();
-        if (building === "MU7") {
+        var building = $(obj).text();
+        if (building == "MU7") {
             document.getElementById("btn1").classList.toggle("show");
             document.getElementById("btn2").classList.remove("show");
 
@@ -227,8 +227,8 @@
     }
 
     // createChart() er en function der genererer chart ud fra et template
-    function createChart(indeks, dag) {
-        new Chart(document.getElementById("chart" + indeks).getContext('2d'), {
+    function createChart(index, dag) {
+        new Chart(document.getElementById("chart" + index).getContext('2d'), {
             type: 'line',
 
             // The data for our dataset
@@ -238,14 +238,14 @@
                     label: 'Temperatur',
                     backgroundColor: 'rgba(239,154,18,0.7)',
                     borderColor: 'rgb(239,154,18)',
-                    data: [timeList[indeks][0].temperature, timeList[indeks][1].temperature, timeList[indeks][2].temperature],
-                    fill: true,
+                    data: [timeList[index][0].temperature, timeList[index][1].temperature, timeList[index][2].temperature],
+                    fill: false,
                 }, {
-                    label: 'Luftfugtighed',
+                    label: 'Luftfugtighed %',
                     backgroundColor: 'rgba(31,84,208,0.1)',
                     borderColor: 'rgb(31,84,208)',
-                    data: [timeList[indeks][0].humidity, timeList[indeks][1].humidity, timeList[indeks][2].humidity],
-                    fill: true,
+                    data: [timeList[index][0].humidity, timeList[index][1].humidity, timeList[index][2].humidity],
+                    fill: false,
                 }]
             },
 
@@ -295,7 +295,7 @@
                     yAxes: [{
                         ticks: {
                             suggestedMin: 0,
-                            suggestedMax: 90,
+                            suggestedMax: 60,
                             fontSize: 15
                         }
                     }]
@@ -303,7 +303,7 @@
                 responsive: true,
                 title: {
                     display: true,
-                    text: dag + weekList[indeks].split('-').reverse().join("-") + " " + makeChartTitle(indeks),
+                    text: dag + weekList[index].split('-').reverse().join("-") + " " + makeChartTitle(index),
                     fontSize: 20
                 },
             }
