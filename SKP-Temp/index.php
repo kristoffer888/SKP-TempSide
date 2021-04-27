@@ -112,7 +112,7 @@
         }
         // Tilføjer data hvis der mangler
         var feed = {humidity: "", temperature: "", updated: "\xa0-\xa0\xa0Intet\xa0data\xa0fra\xa0denne\xa0dag"}
-        var feed1 = {humidity: "0", temperature: "0", updated: ""}
+        var feed1 = {humidity: "", temperature: "", updated: ""}
         var a;
         var b;
         for (var q = 0; q < timeList.length; q++) {
@@ -228,6 +228,9 @@
 
     // createChart() er en function der genererer chart ud fra et template
     function createChart(index, dag) {
+        Chart.Legend.prototype.afterFit = function() {
+            this.height = this.height + 30;
+        };
         new Chart(document.getElementById("chart" + index).getContext('2d'), {
             type: 'line',
 
@@ -241,7 +244,7 @@
                     data: [timeList[index][0].temperature, timeList[index][1].temperature, timeList[index][2].temperature],
                     fill: false,
                 }, {
-                    label: 'Luftfugtighed %',
+                    label: 'Luftfugtighed',
                     backgroundColor: 'rgba(31,84,208,0.1)',
                     borderColor: 'rgb(31,84,208)',
                     data: [timeList[index][0].humidity, timeList[index][1].humidity, timeList[index][2].humidity],
@@ -254,28 +257,51 @@
                 plugins: {
                     datalabels: {
                         display: true,
-                        anchor: 'center',
-                        align: function (context){
-                            context.dataset.label.
+                        anchor: 'top',
+                        offset: 6,
+                        font: {
+                            size: 20,
+                            weight: 'bold',
                         },
-                        offset: 10,
+                        align: function(context) {
+                            var index = context.dataIndex;
+                            var datasets = context.chart.data.datasets;
+                            var v0 = datasets[0].data[index];
+                            var v1 = datasets[1].data[index];
+                            var invert = v0 - v1 > 0;
+                            return context.datasetIndex === 0 ?
+                                invert ? 'end' : 'start' :
+                                invert ? 'start' : 'end';
+                        },
                         color: function (context) {
-                            var valueOrange = context.dataset.label;
-                            if (valueOrange === 'Temperatur') {
+                            var labelColor = context.dataset.label;
+                            if (labelColor === 'Temperatur') {
                                 return 'rgb(239,154,18)';
                             } else {
                                 return 'rgb(31,84,208)';
                             }
                         },
-                        font: {
-                            size: 20,
-                            weight: 'bold'
-                        },
+                        formatter: function(value, context) {
+                            var index = context.dataIndex;
+                            var datasets = context.chart.data.datasets;
+                            var v0 = datasets[0].data[index];
+
+                            var labelName = context.dataset.label;
+                            if (v0 == 0){
+                                return null;
+                            }
+                            else if (labelName === 'Temperatur') {
+                                return v0 + ' °C';
+                            } else {
+                                return v0 + ' %';
+                            }
+                        }
+
                     }
                 },
                 legend: {
                     position: "top",
-                    align: "end",
+                    offset: 10,
                     onHover: function (e) {
                         e.target.style.cursor = 'pointer';
                     },
