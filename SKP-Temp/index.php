@@ -41,7 +41,6 @@
 </div>
 
 
-
 <div style="text-align: center; padding-bottom:25px !important;">
     <h1 id="title">MU7 Zone 5</h1>
 </div>
@@ -49,13 +48,14 @@
 <div id="chartContainer"></div>
 
 <script>
-    var zoneNumber = 5, weekList = ['2021-04-26', '2021-04-27', '2021-04-28', '2021-04-29', '2021-04-30'], timeList = [[], [], [], [], []]
+    var zoneNumber = 5, weekList = ['2021-04-26', '2021-04-27', '2021-04-28', '2021-04-29', '2021-04-30'],
+        timeList = [[], [], [], [], []]
     var firstDateOfWeek = getMonday(new Date().toISOString().split('T')[0])
 
     $(document).ready(function () {
         $.ajax({
             url: "assets/php/data.php",
-            data: { week: weekList },
+            data: {week: weekList, zone: zoneNumber},
             type: "GET",
             dataType: "JSON",
 
@@ -69,20 +69,22 @@
     });
 
     function startCall() {
-        $(document).ready(function () {
-            $.ajax({
-                url: "assets/php/data.php",
-                data: { week: weekList },
-                type: "GET",
-                dataType: "JSON",
+        weekList = getWeek(firstDateOfWeek)
+        console.clear()
+        console.log(zoneNumber)
+        console.log(weekList)
+        $.ajax({
+            url: "assets/php/data.php",
+            data: {week: weekList, zone: zoneNumber},
+            type: "GET",
+            dataType: "JSON",
 
-                success: function (data) {
-                    console.log(data)
-                    dateSorter(data)
-                }, error: function (error) {
-                    console.log(error)
-                }
-            });
+            success: function (data) {
+                console.log(data)
+                dateSorter(data)
+            }, error: function (error) {
+                console.log(error)
+            }
         });
     }
 
@@ -145,12 +147,22 @@
             } else {
             }
         }
-        //console.log(weekList)
-        //console.log(timeList)
-        drawCharts()
+        // Sletter canvas, padding-div og appender et nyt canvas og padding-div til "chartContainer"
+        for (var i = 0; i < 5; i++) {
+            $('#chart' + i).remove();
+            $('#padding' + i).remove();
+            $('#chartContainer').append('<canvas id=' + "chart" + i + ' height="27%" width="100%"></canvas> <div id=' + "padding" + i + ' style="padding-bottom: 50px"></div>');
+        }
+        // creatChart() genererer alle charts
+        createChart(0, "Mandag  -  ")
+        createChart(1, "Tirsdag  -  ")
+        createChart(2, "Onsdag  -  ")
+        createChart(3, "Torsdag  -  ")
+        createChart(4, "Fredag  -  ")
 
     }
 
+    // Skriver en fejlbesked hvis der mangler data
     function makeChartTitle(index) {
         var a = timeList[index][0].updated
 
@@ -174,24 +186,14 @@
         return weekList
     }
 
-    // Sletter canvas, padding-div og appender et nyt canvas og padding-div til "chartContainer"
-    function resetCanvas() {
-        for (var i = 0; i < 5; i++) {
-            $('#chart' + i).remove();
-            $('#padding' + i).remove();
-            $('#chartContainer').append('<canvas id=' + "chart" + i + ' height="27%" width="100%"></canvas> <div id=' + "padding" + i + ' style="padding-bottom: 50px"></div>');
-        }
-    }
-
     //Åbner dropdown menuen
     function pickBuilding(obj) {
         const building = $(obj).text();
-        console.log(building)
-        if (building == "MU7") {
+        if (building === "MU7") {
             document.getElementById("btn1").classList.toggle("show");
             document.getElementById("btn2").classList.remove("show");
 
-        }else {
+        } else {
             document.getElementById("btn2").classList.toggle("show");
             document.getElementById("btn1").classList.remove("show");
 
@@ -218,7 +220,7 @@
         zoneNumber = zoneNumber[zoneNumber.length - 1]
         if (zoneNumber == 7) {
             document.getElementById("title").innerHTML = "MU1a Zone " + zoneNumber;
-        }else {
+        } else {
             document.getElementById("title").innerHTML = "MU7 Zone " + zoneNumber;
         }
         startCall();
@@ -306,16 +308,6 @@
                 },
             }
         });
-    }
-
-    // drawCharts() er en function som kalder resetCanvas() som reseter canvasne og creatChart() some generere chartsne
-    function drawCharts() {
-        resetCanvas()
-        createChart(0, "Mandag  -  ")
-        createChart(1, "Tirsdag  -  ")
-        createChart(2, "Onsdag  -  ")
-        createChart(3, "Torsdag  -  ")
-        createChart(4, "Fredag  -  ")
     }
 </script>
 </body>
