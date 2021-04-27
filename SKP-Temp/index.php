@@ -273,16 +273,17 @@
                         formatter: function(value, context) {
                             var index = context.dataIndex;
                             var datasets = context.chart.data.datasets;
-                            var v0 = datasets[0].data[index];
+                            var temperatur = datasets[0].data[index];
+                            var luftfugtighed = datasets[1].data[index];
 
                             var labelName = context.dataset.label;
-                            if (v0 == 0){
+                            if (temperatur == 0 && luftfugtighed == 0){
                                 return null;
                             }
                             else if (labelName === 'Temperatur') {
-                                return v0 + ' °C';
+                                return temperatur + ' °C';
                             } else {
-                                return v0 + ' %';
+                                return luftfugtighed + ' %';
                             }
                         }
 
