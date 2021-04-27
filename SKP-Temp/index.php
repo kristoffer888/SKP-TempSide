@@ -217,6 +217,9 @@
 
     // createChart() er en function der genererer chart ud fra et template
     function createChart(index, dag) {
+        Chart.Legend.prototype.afterFit = function() {
+            this.height = this.height + 30;
+        };
         new Chart(document.getElementById("chart" + index).getContext('2d'), {
             type: 'line',
 
@@ -230,7 +233,7 @@
                     data: [timeList[index][0].temperature, timeList[index][1].temperature, timeList[index][2].temperature],
                     fill: false,
                 }, {
-                    label: 'Luftfugtighed %',
+                    label: 'Luftfugtighed',
                     backgroundColor: 'rgba(31,84,208,0.1)',
                     borderColor: 'rgb(31,84,208)',
                     data: [timeList[index][0].humidity, timeList[index][1].humidity, timeList[index][2].humidity],
@@ -243,29 +246,56 @@
                 plugins: {
                     datalabels: {
                         display: true,
-                        anchor: 'center',
-                        align: 'top',
-                        offset: 10,
+                        anchor: 'top',
+                        offset: 6,
+                        font: {
+                            size: 20,
+                            weight: 'bold',
+                        },
+                        align: function(context) {
+                            var index = context.dataIndex;
+                            var datasets = context.chart.data.datasets;
+                            var v0 = datasets[0].data[index];
+                            var v1 = datasets[1].data[index];
+                            var invert = v0 - v1 > 0;
+                            return context.datasetIndex === 0 ?
+                                invert ? 'end' : 'start' :
+                                invert ? 'start' : 'end';
+                        },
                         color: function (context) {
-                            var valueOrange = context.dataset.label;
-                            if (valueOrange === 'Temperatur') {
+                            var labelColor = context.dataset.label;
+                            if (labelColor === 'Temperatur') {
                                 return 'rgb(239,154,18)';
                             } else {
                                 return 'rgb(31,84,208)';
                             }
                         },
-                        font: {
-                            size: 20,
-                            weight: 'bold'
-                        },
+                        formatter: function(value, context) {
+                            var index = context.dataIndex;
+                            var datasets = context.chart.data.datasets;
+                            var v0 = datasets[0].data[index];
+
+                            var labelName = context.dataset.label;
+                            if (v0 == 0){
+                                return null;
+                            }
+                            else if (labelName === 'Temperatur') {
+                                return v0 + ' °C';
+                            } else {
+                                return v0 + ' %';
+                            }
+                        }
+
                     }
                 },
                 legend: {
+                    position: "top",
+                    offset: 10,
                     onHover: function (e) {
                         e.target.style.cursor = 'pointer';
                     },
                     labels: {
-                        fontSize: 15
+                        fontSize: 15,
                     }
                 },
                 hover: {
@@ -284,7 +314,7 @@
                     yAxes: [{
                         ticks: {
                             suggestedMin: 0,
-                            suggestedMax: 60,
+                            suggestedMax: 10,
                             fontSize: 15
                         }
                     }]
