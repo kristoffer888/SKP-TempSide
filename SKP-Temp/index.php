@@ -2,20 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="#c9ecff" name="theme-color"/>
+    <meta content="SDE - Temperatur og luftfugtigheds måler" name="description">
+    <title>SKP - Klima</title>
+
     <link rel="icon" href="assets/img/sde-logo.png" type="image/gif" sizes="16x16">
-    <link rel="stylesheet" href="assets/css/week-picker.css">
     <link rel="stylesheet" href="http://www.jqueryscript.net/css/jquerysctipttop.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/week-picker.css">
     <link rel="stylesheet" href="assets/css/style.css"/>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
-    <script src="assets/js/week-picker.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
-    <title>SKP - Klima</title>
+    <script src="assets/js/week-picker.js"></script>
 </head>
 <body>
 <div class="container-fluid">
@@ -67,8 +70,8 @@
     });
 
     function startCall() {
-        weekList = getWeek(firstDateOfWeek)
         console.clear()
+        weekList = getWeek(firstDateOfWeek)
         $.ajax({
             url: "assets/php/data.php",
             data: {week: weekList, zone: zoneNumber},
@@ -104,7 +107,6 @@
         // Tilføjer data hvis der mangler
         let feed = {humidity: "", temperature: "", updated: " -  Intet data fra denne dag"}
         let feed1 = {humidity: "", temperature: "", updated: ""}
-
         for (let q = 0; q < timeList.length; q++) {
             if (timeList[q].length === 0) {
                 timeList[q].push(feed);
@@ -149,21 +151,15 @@
         createChart(3, "Torsdag  -  ")
         createChart(4, "Fredag  -  ")
 
+        console.log(dataArray)
+        console.log(timeList)
     }
 
-    // Skriver en fejlbesked hvis der mangler data
+    // Skriver i titlen hvis der mangler data
     function makeChartTitle(index) {
-        var a = timeList[index][0].updated
-
-        if (timeList[index][0].updated.split(' ')[1] === " -  Manglende data fra et eller flere tidspunkter") {
-            a = timeList[index][0].updated.split(' ')[1]
-        } else if (timeList[index][0].updated.split(' ')[2] === " -  Manglende data fra et eller flere tidspunkter") {
-            a = timeList[index][0].updated.split(' ')[2]
-        } else if (timeList[index][0].updated.split(' ').length === 2) {
-            a = " "
-        }
-
-        return a
+        if (timeList[index][0].updated.match("e")) {
+            return timeList[index][0].updated
+        } return ""
     }
 
     // Den får datoen for mandagen i den valgte uge og returner en liste med de næste fire dage (mandag-fredag , yyyy-mm-dd)
@@ -171,8 +167,7 @@
         weekList = []
         for (let i = 0; i < 5; i++) {
             weekList[i] = moment(moment(monday, "YYYY-MM-DD").add(i, "days")).format("YYYY-MM-DD")
-        }
-        return weekList
+        } return weekList
     }
 
     //Åbner dropdown menuen
@@ -181,21 +176,18 @@
         if (building == "MU7") {
             document.getElementById("btn1").classList.toggle("show");
             document.getElementById("btn2").classList.remove("show");
-
         } else {
             document.getElementById("btn2").classList.toggle("show");
             document.getElementById("btn1").classList.remove("show");
-
         }
     }
 
-    // Lukker dropdown menuen hvis man klikker uden for den
+    // Lukker dropdown menuerne hvis man klikker uden for dem
     window.onclick = function (event) {
         if (!event.target.matches('.dropbtn')) {
-            var dropdowns = document.getElementsByClassName("dropdown-content");
-            var i;
-            for (i = 0; i < dropdowns.length; i++) {
-                var openDropdown = dropdowns[i];
+            let dropdowns = document.getElementsByClassName("dropdown-content");
+            for (let i = 0; i < dropdowns.length; i++) {
+                let openDropdown = dropdowns[i];
                 if (openDropdown.classList.contains('show')) {
                     openDropdown.classList.remove('show');
                 }
@@ -217,12 +209,11 @@
 
     // createChart() er en function der genererer chart ud fra et template
     function createChart(index, dag) {
-        Chart.Legend.prototype.afterFit = function() {
+        Chart.Legend.prototype.afterFit = function () {
             this.height = this.height + 30;
         };
         new Chart(document.getElementById("chart" + index).getContext('2d'), {
             type: 'line',
-
             // The data for our dataset
             data: {
                 labels: ['08:00', '12:00', '15:00'],
@@ -252,7 +243,7 @@
                             size: 20,
                             weight: 'bold',
                         },
-                        align: function(context) {
+                        align: function (context) {
                             var index = context.dataIndex;
                             var datasets = context.chart.data.datasets;
                             var v0 = datasets[0].data[index];
@@ -270,17 +261,16 @@
                                 return 'rgb(31,84,208)';
                             }
                         },
-                        formatter: function(value, context) {
+                        formatter: function (value, context) {
                             var index = context.dataIndex;
                             var datasets = context.chart.data.datasets;
                             var temperatur = datasets[0].data[index];
                             var luftfugtighed = datasets[1].data[index];
 
                             var labelName = context.dataset.label;
-                            if (temperatur == 0 && luftfugtighed == 0){
+                            if (temperatur == 0 && luftfugtighed == 0) {
                                 return null;
-                            }
-                            else if (labelName === 'Temperatur') {
+                            } else if (labelName === 'Temperatur') {
                                 return temperatur + ' °C';
                             } else {
                                 return luftfugtighed + ' %';
