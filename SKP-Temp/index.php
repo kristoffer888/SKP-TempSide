@@ -48,9 +48,8 @@
 <div id="chartContainer"></div>
 
 <script>
-    var zoneNumber = 5, weekList = ['2021-04-26', '2021-04-27', '2021-04-28', '2021-04-29', '2021-04-30'],
-        timeList = [[], [], [], [], []]
     var firstDateOfWeek = getMonday(new Date().toISOString().split('T')[0])
+    var zoneNumber = 5, weekList = getWeek(firstDateOfWeek)
 
     $(document).ready(function () {
         $.ajax({
@@ -60,7 +59,6 @@
             dataType: "JSON",
 
             success: function (data) {
-                console.log(data)
                 dateSorter(data)
             }, error: function (error) {
                 console.log(error)
@@ -71,8 +69,6 @@
     function startCall() {
         weekList = getWeek(firstDateOfWeek)
         console.clear()
-        console.log(zoneNumber)
-        console.log(weekList)
         $.ajax({
             url: "assets/php/data.php",
             data: {week: weekList, zone: zoneNumber},
@@ -80,7 +76,6 @@
             dataType: "JSON",
 
             success: function (data) {
-                console.log(data)
                 dateSorter(data)
             }, error: function (error) {
                 console.log(error)
@@ -97,32 +92,27 @@
     }
 
     function dateSorter(dataArray) {
-        weekList = getWeek(firstDateOfWeek)
         timeList = [[], [], [], [], []];
-        for (var i = 0; i < weekList.length; i++) {
-            for (var x = 0; x < dataArray.length; x++) {
-                var date = new Date(dataArray[x].updated);
-                var year = date.getFullYear();
-                var month = ('0' + (date.getMonth() + 1)).slice(-2);
-                var day = ('0' + date.getDate()).slice(-2);
-                if ((year + "-" + month + "-" + day) === weekList[i] && dataArray[x].zone === zoneNumber.toString()) {
+        for (let i = 0; i < weekList.length; i++) {
+            for (let x = 0; x < dataArray.length; x++) {
+                if (new Date(dataArray[x].updated).toISOString().split('T')[0] === weekList[i]) {
                     timeList[i].push(dataArray[x]);
                 }
             }
         }
+
         // Tilføjer data hvis der mangler
-        var feed = {humidity: "", temperature: "", updated: "\xa0-\xa0\xa0Intet\xa0data\xa0fra\xa0denne\xa0dag"}
-        var feed1 = {humidity: "0", temperature: "0", updated: ""}
-        var a;
-        var b;
-        for (var q = 0; q < timeList.length; q++) {
+        let feed = {humidity: "", temperature: "", updated: " -  Intet data fra denne dag"}
+        let feed1 = {humidity: "", temperature: "", updated: ""}
+
+        for (let q = 0; q < timeList.length; q++) {
             if (timeList[q].length === 0) {
                 timeList[q].push(feed);
                 timeList[q].push(feed);
                 timeList[q].push(feed);
             } else if (timeList[q].length === 2) {
-                a = (timeList[q][0].updated.split(" "))[1].split(":")[0]
-                b = (timeList[q][1].updated.split(" "))[1].split(":")[0]
+                let a = (timeList[q][0].updated.split(" "))[1].split(":")[0]
+                let b = (timeList[q][1].updated.split(" "))[1].split(":")[0]
                 if (a === "08" && b === "12") {
                     timeList[q].push(feed1);
                 } else if (a === "08" && b === "15") {
@@ -130,9 +120,9 @@
                 } else if (a === "12" && b === "15") {
                     timeList[q].unshift(feed1);
                 }
-                timeList[q][0].updated += " \xa0-\xa0\xa0Manglende\xa0data\xa0fra\xa0et\xa0eller\xa0flere\xa0tidspunkter"
+                timeList[q][0].updated = "  -  Manglende data fra et eller flere tidspunkter"
             } else if (timeList[q].length === 1) {
-                a = (timeList[q][0].updated.split(" "))[1].split(":")[0]
+                let a = (timeList[q][0].updated.split(" "))[1].split(":")[0]
                 if (a === "08") {
                     timeList[q].push(feed1);
                     timeList[q].push(feed1);
@@ -143,8 +133,7 @@
                     timeList[q].unshift(feed1)
                     timeList[q].unshift(feed1)
                 }
-                timeList[q][0].updated += " \xa0-\xa0\xa0Manglende\xa0data\xa0fra\xa0et\xa0eller\xa0flere\xa0tidspunkter"
-            } else {
+                timeList[q][0].updated = "  -  Manglende data fra et eller flere tidspunkter"
             }
         }
         // Sletter canvas, padding-div og appender et nyt canvas og padding-div til "chartContainer"
