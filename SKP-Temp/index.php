@@ -252,7 +252,9 @@
                     datalabels: {
                         display: true,
                         anchor: 'center',
-                        align: 'top',
+                        align: function (context){
+                            context.dataset.label.
+                        },
                         offset: 10,
                         color: function (context) {
                             var valueOrange = context.dataset.label;
@@ -269,11 +271,13 @@
                     }
                 },
                 legend: {
+                    position: "top",
+                    align: "end",
                     onHover: function (e) {
                         e.target.style.cursor = 'pointer';
                     },
                     labels: {
-                        fontSize: 15
+                        fontSize: 15,
                     }
                 },
                 hover: {
@@ -292,7 +296,7 @@
                     yAxes: [{
                         ticks: {
                             suggestedMin: 0,
-                            suggestedMax: 60,
+                            suggestedMax: 10,
                             fontSize: 15
                         }
                     }]
