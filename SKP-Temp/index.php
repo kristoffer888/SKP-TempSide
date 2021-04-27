@@ -30,8 +30,6 @@
             <a onclick='pickZone(this)'>Zone 6</a>
             <a onclick='pickZone(this)'>Zone 8</a>
             <a onclick='pickZone(this)'>Zone 9</a>
-            <a onclick='pickZone(this)'>Zone 100</a>
-            <a onclick='pickZone(this)'>Zone 102</a>
         </div>
     </div>
     <div class="dropdown first">
