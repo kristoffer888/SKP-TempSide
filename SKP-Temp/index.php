@@ -42,18 +42,19 @@
 <div id="chartContainer"></div>
 
 <script>
-    var zoneNumber = 5, weekList = ['2021-04-26', '2021-04-27', '2021-04-28', '2021-04-29', '2021-04-30'], timeList = [[], [], [], [], []]
+    var zoneNumber = 5, timeList = [[], [], [], [], []]
     var firstDateOfWeek = getMonday(new Date().toISOString().split('T')[0])
-
+    var weekList = getWeek(firstDateOfWeek)
     $(document).ready(function () {
         $.ajax({
             url: "assets/php/data.php",
-            data: { week: weekList },
+            data: {week: weekList},
             type: "GET",
             dataType: "JSON",
 
             success: function (data) {
                 console.log(data)
+                dateSorter(data)
                 dateSorter(data)
             }, error: function (error) {
                 console.log(error)
@@ -62,20 +63,20 @@
     });
 
     function startCall() {
-        $(document).ready(function () {
-            $.ajax({
-                url: "assets/php/data.php",
-                data: { week: weekList },
-                type: "GET",
-                dataType: "JSON",
+        console.clear();
+        $.ajax({
+            url: "assets/php/data.php",
+            data: {week: weekList},
+            type: "GET",
+            dataType: "JSON",
 
-                success: function (data) {
-                    console.log(data)
-                    dateSorter(data)
-                }, error: function (error) {
-                    console.log(error)
-                }
-            });
+            success: function (data) {
+                console.log(data)
+                dateSorter(data)
+                dateSorter(data)
+            }, error: function (error) {
+                console.log(error)
+            }
         });
     }
 
@@ -138,8 +139,6 @@
             } else {
             }
         }
-        //console.log(weekList)
-        //console.log(timeList)
         drawCharts()
 
     }
@@ -160,8 +159,8 @@
 
     // Den får datoen for mandagen i den valgte uge og returner en liste med de næste fire dage (mandag-fredag , yyyy-mm-dd)
     function getWeek(monday) {
-        weekList=[]
-        for (let i =0; i < 5; i++ ){
+        weekList = []
+        for (let i = 0; i < 5; i++) {
             weekList[i] = moment(moment(monday, "YYYY-MM-DD").add(i, "days")).format("YYYY-MM-DD")
         }
         return weekList
@@ -198,10 +197,10 @@
     // Henter teksten fra knappen som man trykkede på og ændrer "zoneNumber" og titlen
     function pickZone(obj) {
         zoneNumber = $(obj).text().split(' ');
-        zoneNumber = zoneNumber[zoneNumber.length-1]
+        zoneNumber = zoneNumber[zoneNumber.length - 1]
         if (zoneNumber == 7) {
             document.getElementById("title").innerHTML = "MU1a Zone " + zoneNumber;
-        }else {
+        } else {
             document.getElementById("title").innerHTML = "Zone " + zoneNumber;
         }
         startCall();
