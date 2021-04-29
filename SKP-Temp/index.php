@@ -204,6 +204,7 @@
 
     // createChart() er en function der genererer chart ud fra et template
     function createChart(index, dag) {
+        // Tilføjer mellemrum mellem chart og legend.
         Chart.Legend.prototype.afterFit = function () {
             this.height = this.height + 30;
         };
@@ -249,7 +250,6 @@
                                 return context.datasetIndex === 0 ?
                                     invert ? -45 : 45 :
                                     invert ? 45 : -45 ;
-
                             }
                             else if (index === 1){
                                 return context.datasetIndex === 0 ?
@@ -280,6 +280,7 @@
                             var luftfugtighed = datasets[1].data[index];
 
                             var labelName = context.dataset.label;
+
                             if (temperatur == 0 && luftfugtighed == 0){
                                 return null;
                             }
