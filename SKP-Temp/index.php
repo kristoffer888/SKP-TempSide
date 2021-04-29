@@ -4,19 +4,18 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="#c9ecff" name="theme-color"/>
-    <meta content="SDE - Temperatur og luftfugtigheds måler" name="description">
+    <meta content="SDE - Temperatur og luftfugtighedsmåler" name="description">
     <title>SKP - Klima</title>
 
     <link rel="icon" href="assets/img/sde-logo.png" type="image/gif" sizes="16x16">
-    <link rel="stylesheet" href="http://www.jqueryscript.net/css/jquerysctipttop.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/week-picker.css">
     <link rel="stylesheet" href="assets/css/style.css"/>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.2.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@1.1.2"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="assets/js/week-picker.js"></script>
 </head>
