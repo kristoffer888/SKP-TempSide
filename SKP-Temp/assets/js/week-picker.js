@@ -52,7 +52,7 @@
                 var locale = getLocale($this.data("locale"));
 
                 // TODO: Fix html to multiple rows for readability
-                $this.append("<div class='_week-picker'><input readonly placeholder='" + (mode == "single" ? locale.OPEN_PICKER_SINGLE : locale.OPEN_PICKER) + "' /><div class='_middle'><div class='_popup' style='display:none'><div class='_oh'><a href='javascript:void(0)' class='_arrow _left'>&lt;</a><p class='_yeardisp'></p><a href='javascript:void(0)' class='_arrow _right'>&gt;</a></div><table class='_weekTable' /><div class='_uh'><a class='_clear' href='javascript:void(0)'>" + locale.CLEAR + "</a></div></div></div></div>");
+                $this.append("<div class='_week-picker'><input readonly placeholder='" + (mode == "single" ? locale.OPEN_PICKER_SINGLE : locale.OPEN_PICKER) + "' /><div class='_middle'><div class='_popup' style='display:none'><div class='_oh'><p class='_arrow _left'>&lt;</p><p class='_yeardisp'></p><p class='_arrow _right'>&gt;</p></div><table class='_weekTable' /><div class='_uh'><p class='_clear'>" + locale.CLEAR + "</p></div></div></div></div>");
                 var popup = $this.find("._popup");
 
                 $this.weekPicker("changeYear", new Date().getFullYear());

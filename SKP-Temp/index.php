@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="#c9ecff" name="theme-color"/>
-    <meta content="SDE - Temperatur og luftfugtigheds måler" name="description">
+    <meta content="SDE - Temperatur og luftfugtighedsmåler" name="description">
     <title>SKP - Klima</title>
 
     <link rel="icon" href="assets/img/sde-logo.png" type="image/gif" sizes="16x16">
-    <link rel="stylesheet" href="http://www.jqueryscript.net/css/jquerysctipttop.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/week-picker.css">
     <link rel="stylesheet" href="assets/css/style.css"/>
@@ -49,13 +48,13 @@
 <div id="chartContainer"></div>
 
 <script>
-    var firstDateOfWeek = getMonday(new Date().toISOString().split('T')[0])
-    var zoneNumber = 5, weekList = getWeek(firstDateOfWeek)
+    let firstDateOfWeek = getMonday(new Date().toISOString().split('T')[0])
+    let zoneNumber = 5
 
     $(document).ready(function () {
         $.ajax({
             url: "assets/php/data.php",
-            data: {week: weekList, zone: zoneNumber},
+            data: {week: getWeek(firstDateOfWeek), zone: 5},
             type: "GET",
             dataType: "JSON",
 
@@ -69,7 +68,7 @@
 
     function startCall() {
         console.clear()
-        weekList = getWeek(firstDateOfWeek)
+        let weekList = getWeek(firstDateOfWeek)
         $.ajax({
             url: "assets/php/data.php",
             data: {week: weekList, zone: zoneNumber},
@@ -87,7 +86,7 @@
     // Henter mandag fra den nuværende uge
     function getMonday(d) {
         d = new Date(d);
-        var day = d.getDay(),
+        let day = d.getDay(),
             diff = d.getDate() - day + (day === 0 ? -6 : 1);
         return new Date(d.setDate(diff));
     }
@@ -103,13 +102,12 @@
         }
 
         // Tilføjer data hvis der mangler
-        let feed = {humidity: "", temperature: "", updated: " -  Intet data fra denne dag"}
         let feed1 = {humidity: "", temperature: "", updated: ""}
         for (let q = 0; q < timeList.length; q++) {
             if (timeList[q].length === 0) {
-                timeList[q].push(feed);
-                timeList[q].push(feed);
-                timeList[q].push(feed);
+                timeList[q].push({humidity: "", temperature: "", updated: " -  Intet data fra denne dag"});
+                timeList[q].push({humidity: "", temperature: "", updated: " -  Intet data fra denne dag"});
+                timeList[q].push({humidity: "", temperature: "", updated: " -  Intet data fra denne dag"});
             } else if (timeList[q].length === 2) {
                 let a = (timeList[q][0].updated.split(" "))[1].split(":")[0]
                 let b = (timeList[q][1].updated.split(" "))[1].split(":")[0]
@@ -149,7 +147,6 @@
         createChart(3, "Torsdag  -  ")
         createChart(4, "Fredag  -  ")
 
-        console.log(dataArray)
         console.log(timeList)
     }
 
@@ -171,7 +168,7 @@
     //Åbner dropdown menuen
     function pickBuilding(obj) {
         var building = $(obj).text();
-        if (building == "MU7") {
+        if (building === "MU7") {
             document.getElementById("btn1").classList.toggle("show");
             document.getElementById("btn2").classList.remove("show");
         } else {
@@ -248,18 +245,18 @@
                             var v1 = datasets[1].data[index];
                             var invert = v0 - v1 > 0;
 
-                            if (index == 0){
+                            if (index === 0){
                                 return context.datasetIndex === 0 ?
                                     invert ? -45 : 45 :
                                     invert ? 45 : -45 ;
 
                             }
-                            else if (index == 1){
+                            else if (index === 1){
                                 return context.datasetIndex === 0 ?
                                     invert ? 'end' : 'start' :
                                     invert ? 'start' : 'end';
                             }
-                            else if (index == 2){
+                            else if (index === 2){
                                 return context.datasetIndex === 0 ?
                                     invert ? 240 : -240 :
                                     invert ? -240 : 240 ;
