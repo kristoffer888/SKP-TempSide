@@ -1,5 +1,5 @@
 <?php
-$conn = mysqli_connect("localhost", "root", "", "skptemp");
+$conn = mysqli_connect();
 $arr = $_GET['week'];
 $zoneNum = $_GET['zone'];
 
